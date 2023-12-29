@@ -22,6 +22,11 @@
         android:defaultToDeviceProtectedStorage="true"
         android:directBootAware="true"
         android:theme="@style/Theme.SettingsBase">
+
+        <uses-library
+            android:name="gpiocontrol"
+            android:required="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -44,4 +44,22 @@
             android:targetPackage="com.khadas.schpwronoff" />
     </PreferenceScreen>
 
+    <PreferenceScreen
+        android:title="@string/gpio_setting"
+        android:iconSpaceReserved="false"
+        android:summary="@string/gpio_setting_desc">
+        <intent
+            android:targetClass="com.khadas.schpwronoff.AlarmClock"
+            android:targetPackage="com.khadas.schpwronoff" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:title="@string/can_bus_setting"
+        android:iconSpaceReserved="false"
+        android:summary="@string/can_bus_setting_desc">
+        <intent
+            android:targetClass="com.khadas.schpwronoff.AlarmClock"
+            android:targetPackage="com.khadas.schpwronoff" />
+    </PreferenceScreen>
+
 </PreferenceScreen>
