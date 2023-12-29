@@ -19,11 +19,21 @@ android_app {
     system_ext_specific: true,
     platform_apis: true,
     certificate: "platform",
-    srcs: ["src/**/*.java"],
+    srcs: [
+        "src/**/*.java",
+        "src/cpp/ksettings.cpp"
+    ],
     privileged: true,
     static_libs: [
         "androidx-constraintlayout_constraintlayout",
         "androidx.appcompat_appcompat",
+    ],
+    shared_libs: [
+        "gpiocontrol",
+        "ksettings"
+    ],
+    include_dirs: [
+        "path/to/your/include"
     ],
     resource_dirs: ["res"],
 }

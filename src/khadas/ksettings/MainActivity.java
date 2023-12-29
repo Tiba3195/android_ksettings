@@ -15,6 +15,9 @@ import java.io.IOException;
 
 public class MainActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener {
 
+    static {
+        System.loadLibrary("ksettings");
+    }
     private ListPreference FAN_Preference;
     private SwitchPreference WOL_Preference;
 
