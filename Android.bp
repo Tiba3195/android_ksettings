@@ -33,7 +33,7 @@ android_app {
         "ksettings"
     ],
     include_dirs: [
-        "path/to/your/include"
+        "device/khadas/rk3588/gpio_control/"
     ],
     resource_dirs: ["res"],
 }
