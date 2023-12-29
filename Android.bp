@@ -14,9 +14,38 @@
 
 // Define the shared C++ library
 cc_library_shared {
-    name: "ksettingslib",
+    name: "libjni_ksettings",
     srcs: ["src/cpp/ksettings.cpp"],
-    local_include_dirs: ["device/khadas/rk3588/gpio_control/"], // Include path for headers
+    local_include_dirs: ["includes"], // Include path for headers
+
+    stl: "c++_static",
+
+    shared_libs: [
+        "liblog",
+        "libdl",
+        "gpiocontrol",
+    ],
+
+    sdk_version: "17",   
+    
+    cflags: [
+        "-ffast-math",
+        "-O3",
+        "-funroll-loops",
+    ] + [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+
+    arch: {
+        arm: {
+            instruction_set: "arm",
+        },
+    },
+
+    header_libs: ["jni_headers"],
+
     // Add other necessary configurations, flags, etc.
 }
 
@@ -30,11 +59,17 @@ android_app {
     srcs: [
         "src/**/*.java"        
     ],
+
     privileged: true,
+
     static_libs: [
         "androidx-constraintlayout_constraintlayout",
-        "androidx.appcompat_appcompat",
-        "ksettingslib",
-    ],    
+        "androidx.appcompat_appcompat",        
+    ],
+
+    jni_libs: [
+        "libjni_ksettings",        
+    ],
+
     resource_dirs: ["res"],
 }
