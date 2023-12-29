@@ -12,44 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Define the shared C++ library
-cc_library_shared {
-    name: "libjni_ksettings",
-    srcs: ["src/cpp/ksettings.cpp"],
-    local_include_dirs: ["includes"], // Include path for headers
-
-    stl: "c++_static",
-
-    shared_libs: [
-        "libandroid",
-        "liblog",
-        "libdl",
-        "gpiocontrol",
-    ],
-
-    sdk_version: "17",   
-    
-    cflags: [
-        "-ffast-math",
-        "-O3",
-        "-funroll-loops",
-    ] + [
-        "-Wall",
-        "-Wextra",
-        "-Werror",
-    ],
-
-    arch: {
-        arm: {
-            instruction_set: "arm",
-        },
-    },
-
-    header_libs: ["jni_headers"],
-
-    // Add other necessary configurations, flags, etc.
-}
-
 // Khadas Settings
 android_app {
     name: "KSettings",
