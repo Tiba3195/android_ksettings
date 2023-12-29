@@ -12,6 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Define the shared C++ library
+cc_library_shared {
+    name: "ksettingslib",
+    srcs: ["src/cpp/ksettings.cpp"],
+    local_include_dirs: ["device/khadas/rk3588/gpio_control/"], // Include path for headers
+    // Add other necessary configurations, flags, etc.
+}
+
 // Khadas Settings
 android_app {
     name: "KSettings",
@@ -20,20 +28,13 @@ android_app {
     platform_apis: true,
     certificate: "platform",
     srcs: [
-        "src/**/*.java",
-        "src/cpp/ksettings.cpp"
+        "src/**/*.java"        
     ],
     privileged: true,
     static_libs: [
         "androidx-constraintlayout_constraintlayout",
         "androidx.appcompat_appcompat",
-    ],
-    shared_libs: [
-        "gpiocontrol",
-        "ksettings"
-    ],
-    include_dirs: [
-        "device/khadas/rk3588/gpio_control/"
-    ],
+        "ksettingslib",
+    ],    
     resource_dirs: ["res"],
 }
