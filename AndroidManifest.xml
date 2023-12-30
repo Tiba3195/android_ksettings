@@ -26,6 +26,10 @@
         <uses-library
             android:name="gpiocontrol"
             android:required="true" />
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            tools:replace="android:authorities" />
 
         <activity
             android:name=".MainActivity"
