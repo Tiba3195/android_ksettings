@@ -3,7 +3,7 @@ package com.khadas.ksettings;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemProperties;
+
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -11,6 +11,8 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.view.View;
+
+import com.khadas.util.SystemPropertiesResolver;
 
 import java.io.IOException;
 
@@ -30,7 +32,7 @@ public class MCUBlueOnStatusSeekBarPreference extends DialogPreference implement
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_WHAT_SET_BACKLIGHT:
-				SystemProperties.set("persist.sys.mcu_blue_on_bl_value", String.valueOf(msg.arg1));
+                    SystemPropertiesResolver.get().set("persist.sys.mcu_blue_on_bl_value", String.valueOf(msg.arg1));
 				val = Integer.toHexString(msg.arg1);
                     try {
 						if(msg.arg1>=0 && msg.arg1 <=15){
@@ -61,7 +63,7 @@ public class MCUBlueOnStatusSeekBarPreference extends DialogPreference implement
         textView = (TextView) view.findViewById(R.id.textView1);
         seekBar.setOnSeekBarChangeListener(this);
 
-        value = SystemProperties.get("persist.sys.mcu_blue_on_bl_value");
+        value =  SystemPropertiesResolver.get().get("persist.sys.mcu_blue_on_bl_value");
         //Log.d("hlm1","Mipi=" + value);
         if(value.equals("")){
             value = "255";

@@ -6,7 +6,6 @@ import android.app.StatusBarManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemProperties;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.SwitchPreference;
@@ -15,6 +14,8 @@ import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.khadas.util.SystemPropertiesResolver;
 
 
 public class Status_bar_Preference extends PreferenceActivity implements Preference.OnPreferenceClickListener {
@@ -44,7 +45,7 @@ public class Status_bar_Preference extends PreferenceActivity implements Prefere
     private void initPreference() {
         status_upper_Preference = (SwitchPreference)findPreference(STATUS_BAR_UPPER);
         //int mistake_touch_mode_on  = Settings.System.getInt(AliDisplaySettings.this.getContentResolver(),"sys.mistaketouch.switch",0);
-        if(SystemProperties.getInt("persist.sys.show_upper_bar",1) == 1) {
+        if( SystemPropertiesResolver.get().getInt("persist.sys.show_upper_bar",1) == 1) {
             status_upper_Preference.setChecked(true);
         }else{
             status_upper_Preference.setChecked(false);
@@ -53,7 +54,7 @@ public class Status_bar_Preference extends PreferenceActivity implements Prefere
 
         status_bottom_Preference = (SwitchPreference)findPreference(STATUS_BAR_BOTTOM);
         //int mistake_touch_mode_on  = Settings.System.getInt(AliDisplaySettings.this.getContentResolver(),"sys.mistaketouch.switch",0);
-        if(SystemProperties.getInt("persist.sys.show_bottom_bar",1) == 1) {
+        if( SystemPropertiesResolver.get().getInt("persist.sys.show_bottom_bar",1) == 1) {
             status_bottom_Preference.setChecked(true);
         }else{
             status_bottom_Preference.setChecked(false);

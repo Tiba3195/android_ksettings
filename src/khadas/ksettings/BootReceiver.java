@@ -4,9 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 //import android.os.SystemProperties;
-import android.os.SystemProperties;
+
 import android.provider.Settings;
 import android.util.Log;
+
+import com.khadas.util.SystemPropertiesResolver;
 
 import java.io.IOException;
 
@@ -24,14 +26,14 @@ public class BootReceiver extends BroadcastReceiver {
 		if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
 			Log.e(TAG, "hlm5 start Kedge2ToolsService");
 			//context.startService(new Intent(context, Kedge2ToolsService.class));
-			Settings.System.putInt(context.getContentResolver(),"user_rotation", SystemProperties.getInt("persist.sys.user_rotation",0));
+			Settings.System.putInt(context.getContentResolver(),"user_rotation",  SystemPropertiesResolver.get().getInt("persist.sys.user_rotation",0));
 			fan_control();
 			led_control();
 		}
 	}
 
 	private void fan_control() {
-		switch (SystemProperties.getInt("persist.sys.fan_control", 1)){
+		switch ( SystemPropertiesResolver.get().getInt("persist.sys.fan_control", 1)){
 			case 0:
 				try {
 					ComApi.execCommand(new String[]{"sh", "-c", "echo 0 > /sys/class/fan/enable"});
@@ -87,7 +89,7 @@ public class BootReceiver extends BroadcastReceiver {
 	}
 
 	private void led_control() {
-		value = SystemProperties.get("persist.sys.mcu_leds_on_modes_value");
+		value =  SystemPropertiesResolver.get().get("persist.sys.mcu_leds_on_modes_value");
 		if (value.equals("")) {
 			value = "0";
 		}
@@ -98,7 +100,7 @@ public class BootReceiver extends BroadcastReceiver {
 			e.printStackTrace();
 		}
 
-		value = SystemProperties.get("persist.sys.mcu_red_on_bl_value");
+		value =  SystemPropertiesResolver.get().get("persist.sys.mcu_red_on_bl_value");
 		if (value.equals("")) {
 			value = "255";
 		}
@@ -114,7 +116,7 @@ public class BootReceiver extends BroadcastReceiver {
 			e.printStackTrace();
 		}
 
-		value = SystemProperties.get("persist.sys.mcu_green_on_bl_value");
+		value =  SystemPropertiesResolver.get().get("persist.sys.mcu_green_on_bl_value");
 		if (value.equals("")) {
 			value = "255";
 		}
@@ -129,7 +131,7 @@ public class BootReceiver extends BroadcastReceiver {
 			e.printStackTrace();
 		}
 
-		value = SystemProperties.get("persist.sys.mcu_blue_on_bl_value");
+		value =  SystemPropertiesResolver.get().get("persist.sys.mcu_blue_on_bl_value");
 		if (value.equals("")) {
 			value = "255";
 		}
@@ -144,7 +146,7 @@ public class BootReceiver extends BroadcastReceiver {
 			e.printStackTrace();
 		}
 		//System Shutdown muc led status
-		value = SystemProperties.get("persist.sys.mcu_leds_off_modes_value");
+		value =  SystemPropertiesResolver.get().get("persist.sys.mcu_leds_off_modes_value");
 		if (value.equals("")) {
 			value = "1";
 		}
@@ -153,7 +155,7 @@ public class BootReceiver extends BroadcastReceiver {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		value = SystemProperties.get("persist.sys.mcu_red_off_bl_value");
+		value =  SystemPropertiesResolver.get().get("persist.sys.mcu_red_off_bl_value");
 		if (value.equals("")) {
 			value = "255";
 		}
@@ -167,7 +169,7 @@ public class BootReceiver extends BroadcastReceiver {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		value = SystemProperties.get("persist.sys.mcu_green_off_bl_value");
+		value =  SystemPropertiesResolver.get().get("persist.sys.mcu_green_off_bl_value");
 		if (value.equals("")) {
 			value = "0";
 		}
@@ -181,7 +183,7 @@ public class BootReceiver extends BroadcastReceiver {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		value = SystemProperties.get("persist.sys.mcu_blue_off_bl_value");
+		value =  SystemPropertiesResolver.get().get("persist.sys.mcu_blue_off_bl_value");
 		if (value.equals("")) {
 			value = "0";
 		}
@@ -196,7 +198,7 @@ public class BootReceiver extends BroadcastReceiver {
 			e.printStackTrace();
 		}
 		//sys led
-		value = SystemProperties.get("persist.sys.Red_led_control");
+		value =  SystemPropertiesResolver.get().get("persist.sys.Red_led_control");
 		if (value.equals("")) {
 			value = "3";
 		}
@@ -232,7 +234,7 @@ public class BootReceiver extends BroadcastReceiver {
 				break;
 		}
 
-		value = SystemProperties.get("persist.sys.Green_led_control");
+		value =  SystemPropertiesResolver.get().get("persist.sys.Green_led_control");
 		if (value.equals("")) {
 			value = "3";
 		}
@@ -268,7 +270,7 @@ public class BootReceiver extends BroadcastReceiver {
 				break;
 		}
 
-		value = SystemProperties.get("persist.sys.Blue_led_control");
+		value =  SystemPropertiesResolver.get().get("persist.sys.Blue_led_control");
 		if (value.equals("")) {
 			value = "3";
 		}

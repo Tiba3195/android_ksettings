@@ -1,12 +1,15 @@
 package com.khadas.ksettings;
 
 import android.os.Bundle;
-import android.os.SystemProperties;
+
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import com.khadas.util.ISystemProperties;
+import com.khadas.util.SystemPropertiesResolver;
 
 import java.io.IOException;
 
@@ -52,6 +55,7 @@ public class SYS_LEDs_Preference extends PreferenceActivity implements Preferenc
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
             String key = preference.getKey();
+
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
                 // the preference's 'entries' list.
@@ -92,7 +96,7 @@ public class SYS_LEDs_Preference extends PreferenceActivity implements Preferenc
                             }
                             break;
                     }
-                    SystemProperties.set("persist.sys.Red_led_control", "" + index);
+                    SystemPropertiesResolver.get().set("persist.sys.Red_led_control", "" + index);
 
                 }
                 else if (Green_LED_KEY.equals(key)){
@@ -127,7 +131,7 @@ public class SYS_LEDs_Preference extends PreferenceActivity implements Preferenc
                             }
                             break;
                     }
-                    SystemProperties.set("persist.sys.Green_led_control", "" + index);
+                    SystemPropertiesResolver.get().set("persist.sys.Green_led_control", "" + index);
 
                 }else if(Blue_LED_KEY.equals(key)){
                     //Log.d("wjh","1===" + index);
@@ -161,7 +165,7 @@ public class SYS_LEDs_Preference extends PreferenceActivity implements Preferenc
                             }
                             break;
                     }
-                    SystemProperties.set("persist.sys.Blue_led_control", "" + index);
+                    SystemPropertiesResolver.get().set("persist.sys.Blue_led_control", "" + index);
 
                 }
             }  else {

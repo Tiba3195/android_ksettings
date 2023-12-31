@@ -1,7 +1,7 @@
 package com.khadas.ksettings;
 
 import android.content.Context;
-import android.os.SystemProperties;
+
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -10,6 +10,8 @@ import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.khadas.util.SystemPropertiesResolver;
 
 import java.io.IOException;
 
@@ -109,7 +111,7 @@ public class MainActivity extends PreferenceActivity implements Preference.OnPre
                             }
                             break;
                     }
-                    SystemProperties.set("persist.sys.fan_control", "" + index);
+                    SystemPropertiesResolver.get().set("persist.sys.fan_control", "" + index);
 
                 }
 

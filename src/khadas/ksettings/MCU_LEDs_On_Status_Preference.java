@@ -1,7 +1,7 @@
 package com.khadas.ksettings;
 
 import android.os.Bundle;
-import android.os.SystemProperties;
+
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -9,6 +9,9 @@ import android.preference.PreferenceManager;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
+import com.khadas.util.SystemPropertiesResolver;
+
 import java.io.IOException;
 
 
@@ -33,21 +36,21 @@ public class MCU_LEDs_On_Status_Preference extends PreferenceActivity implements
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_UI_BL:
-                    value = SystemProperties.get("persist.sys.mcu_red_on_bl_value");
+                    value =  SystemPropertiesResolver.get().get("persist.sys.mcu_red_on_bl_value");
                     if(value.equals("")){
                         value = "255";
                     }
                     MCURedOnBl_Preference.setSummary("" + value);
                     MCURedOnBl_Preference.setEnabled(true);
 
-                    value = SystemProperties.get("persist.sys.mcu_green_on_bl_value");
+                    value =  SystemPropertiesResolver.get().get("persist.sys.mcu_green_on_bl_value");
                     if(value.equals("")){
                         value = "255";
                     }
                     MCUGreenOnBl_Preference.setSummary("" + value);
                     MCUGreenOnBl_Preference.setEnabled(true);
 
-                    value = SystemProperties.get("persist.sys.mcu_blue_on_bl_value");
+                    value =  SystemPropertiesResolver.get().get("persist.sys.mcu_blue_on_bl_value");
                     if(value.equals("")){
                         value = "255";
                     }
@@ -132,7 +135,7 @@ public class MCU_LEDs_On_Status_Preference extends PreferenceActivity implements
                     if(index<=15 && index >=0) {
                         try {
                             ComApi.execCommand(new String[]{"sh", "-c", "echo 0x230"+ val +" > /sys/class/mcu/mculed"});
-                            SystemProperties.set("persist.sys.mcu_leds_on_modes_value", val);
+                            SystemPropertiesResolver.get().set("persist.sys.mcu_leds_on_modes_value", val);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

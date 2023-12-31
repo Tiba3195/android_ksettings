@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemProperties;
+
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -15,6 +15,8 @@ import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.widget.Toast;
 import android.util.Log;
+
+import com.khadas.util.SystemPropertiesResolver;
 
 import java.io.IOException;
 
@@ -75,7 +77,7 @@ public class Display_Preference extends PreferenceActivity implements Preference
 
                 }else if(DISPLAY_ROTATION_KEY.equals(key)){
                     Settings.System.putInt(mContext.getContentResolver(),"user_rotation",index);
-                    SystemProperties.set("persist.sys.user_rotation",""+index);
+                    SystemPropertiesResolver.get().set("persist.sys.user_rotation",""+index);
                 }
 
             }  else {
@@ -106,7 +108,7 @@ public class Display_Preference extends PreferenceActivity implements Preference
     public boolean onPreferenceClick(Preference preference) {
         final String key = preference.getKey();
         if (DISPLAY_ROTATION_KEY.equals(key)){
-            SystemProperties.set("set.user_rotation","true");
+            SystemPropertiesResolver.get().set("set.user_rotation","true");
         }
         return true;
     }
@@ -115,6 +117,6 @@ public class Display_Preference extends PreferenceActivity implements Preference
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
-        SystemProperties.set("set.user_rotation","false");
+        SystemPropertiesResolver.get().set("set.user_rotation","false");
     }
 }
