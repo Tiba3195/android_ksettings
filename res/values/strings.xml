@@ -224,7 +224,7 @@
     <string name="textview" translatable="false">TextView</string>
 
 
-    <string name="gpio_setting" translatable="false">GPIO Settings XX</string>
+    <string name="gpio_setting" translatable="false">GPIO Settings</string>
     <string name="gpio_setting_desc" translatable="false">Used to Export/Unexport Pins and Get Pin Values</string>
     <string name="can_bus_setting" translatable="false">CAN Bus Settings</string>
     <string name="can_bus_setting_desc" translatable="false">Control the can bus</string>
