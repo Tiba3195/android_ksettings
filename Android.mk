@@ -13,6 +13,8 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
     androidx-constraintlayout_constraintlayout \
     androidx.appcompat_appcompat
 
+LOCAL_SHARED_LIBRARIES := gpiocontrol
+
 # JNI libraries
 LOCAL_JNI_SHARED_LIBRARIES := libjni_ksettings
 
@@ -30,4 +32,3 @@ LOCAL_PLATFORM_APIS := true
 APP_ABI := arm64-v8a
 
 include $(BUILD_PACKAGE)
-
