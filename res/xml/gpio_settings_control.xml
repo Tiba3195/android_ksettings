@@ -2,24 +2,26 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
-        android:key="DISPLAY_ROTATION_KEY"
-        android:title="@string/Display_screen_rotation"
-        android:summary="@string/Screen_rotation_default"
-        android:defaultValue="0"
-        android:dialogTitle="@string/Display_screen_rotation"
-        android:entries="@array/Screen_rotation_array"
-        android:entryValues="@array/Screen_rotation_array_value">
-    </ListPreference>
+    <EditTextPreference
+        android:id="@+id/pinNumberEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Pin Number" />
 
-    <ListPreference
-        android:key="DISPLAY_DENSITY_KEY"
-        android:title="@string/Display_screen_density"
-        android:summary="@string/Screen_density_default"
-        android:defaultValue="4"
-        android:dialogTitle="@string/Display_screen_density"
-        android:entries="@array/Screen_density_array"
-        android:entryValues="@array/Screen_density_array_value">
-    </ListPreference>
+    <Preference
+        android:key="export_pin"
+        android:title="Export Pin"
+        android:widgetLayout="@layout/export_button" />
+
+    <Preference
+        android:key="unexport_pin"
+        android:title="Unexport Pin"
+        android:widgetLayout="@layout/unexport_button" />
+
+    <Preference
+        android:key="gpio_pins"
+        android:layout="@layout/recycler_preference_layout"/>
+
+    <!-- Add more UI elements for direction and value controls -->
 
 </PreferenceScreen>
