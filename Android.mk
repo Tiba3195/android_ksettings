@@ -14,7 +14,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
     androidx.appcompat_appcompat \
     androidx.recyclerview_recyclerview
 
-LOCAL_SHARED_LIBRARIES := gpiocontrol
+LOCAL_SHARED_LIBRARIES := libgpiocontrol
 
 # JNI libraries
 LOCAL_JNI_SHARED_LIBRARIES := libjni_ksettings
