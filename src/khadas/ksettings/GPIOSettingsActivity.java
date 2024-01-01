@@ -34,14 +34,14 @@ public class GPIOSettingsActivity extends PreferenceActivity {
         // Export Pin Preference
         Preference exportPinPref = findPreference("export_pin");
         exportPinPref.setOnPreferenceClickListener(preference -> {
-            showDialog(getBaseContext(),true);
+            showDialog(this,true);
             return true;
         });
 
         // Unexport Pin Preference
         Preference unexportPinPref = findPreference("unexport_pin");
         unexportPinPref.setOnPreferenceClickListener(preference -> {
-            showDialog(getBaseContext(),false);
+            showDialog(this,false);
             return true;
         });
 
