@@ -3,7 +3,7 @@ package com.khadas.ksettings;
 public class GPIOControl {
 
     static {
-        System.loadLibrary("libgpiocontrol");  // Name of your .so library
+        System.loadLibrary("gpiocontrol");  // Name of your .so library
     }
 
     public static native int exportPin(int pin);
