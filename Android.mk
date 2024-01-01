@@ -11,7 +11,8 @@ LOCAL_SRC_FILES := $(call all-java-files-under, src)
 # Static libraries
 LOCAL_STATIC_JAVA_LIBRARIES := \
     androidx-constraintlayout_constraintlayout \
-    androidx.appcompat_appcompat
+    androidx.appcompat_appcompat \
+    androidx.recyclerview_recyclerview
 
 LOCAL_SHARED_LIBRARIES := gpiocontrol
 
