@@ -6,7 +6,7 @@
         android:title="@string/Display_Setting"
         android:iconSpaceReserved="false">
         <intent
-            android:targetClass="com.khadas.ksettings.Display_Preference"
+            android:targetClass="@string/gpio_setting"
             android:targetPackage="com.khadas.ksettings" />
     </PreferenceScreen>
     <PreferenceScreen
@@ -49,8 +49,8 @@
         android:iconSpaceReserved="false"
         android:summary="@string/gpio_setting_desc">
         <intent
-            android:targetClass="com.khadas.schpwronoff.AlarmClock"
-            android:targetPackage="com.khadas.schpwronoff" />
+            android:targetClass="com.khadas.ksettings.GPIOActivity"
+            android:targetPackage="com.khadas.ksettings" />
     </PreferenceScreen>
 
     <PreferenceScreen
