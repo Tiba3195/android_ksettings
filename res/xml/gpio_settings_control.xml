@@ -18,9 +18,9 @@
         android:title="Unexport Pin"
         android:widgetLayout="@layout/unexport_button" />
 
-    <Preference
+    <com.khadas.ksettings.RecyclerViewPreference
         android:key="gpio_pins"
-        android:layout="@layout/recycler_preference_layout"/>
+        android:title="GPIO Pins" />
 
     <!-- Add more UI elements for direction and value controls -->
 

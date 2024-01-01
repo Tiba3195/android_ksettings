@@ -40,13 +40,7 @@ public class GPIOSettingsActivity extends PreferenceActivity {
             gpioPinsPreference.setLayoutResource(R.layout.recycler_preference_layout);
         }
 
-        List<GPIOPin> myGPIOPins = GPIOUtils.getExportedGPIOPins();// Initialize with your GPIO pin data
 
-        // After setting the layout, access the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        GPIOPinAdapter adapter = new GPIOPinAdapter(myGPIOPins);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void exportPin() {
