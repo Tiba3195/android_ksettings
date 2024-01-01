@@ -52,31 +52,25 @@ public class GPIOSettingsActivity extends PreferenceActivity {
         }
     }
 
-    private void exportPin() {
-        int pin = getPinNumber();
+    private void exportPin(int pin) {
+
         // Assuming GPIOControl.exportPin() is your method to handle the GPIO export
         GPIOControl.exportPin(pin);
         Toast.makeText(this, "Exported Pin: " + pin, Toast.LENGTH_SHORT).show();
     }
 
-    private void unexportPin() {
-        int pin = getPinNumber();
+    private void unExportPin(int pin)  {
+
         // Assuming GPIOControl.unexportPin() is your method to handle the GPIO unexport
         GPIOControl.unexportPin(pin);
         Toast.makeText(this, "Unexported Pin: " + pin, Toast.LENGTH_SHORT).show();
-    }
-
-    private int getPinNumber() {
-        String pinString = PreferenceManager.getDefaultSharedPreferences(this)
-                .getString("pin_number", "0");
-        return Integer.parseInt(pinString);
     }
 
     public void showDialog(Context context,boolean exportMode) {
         this.dialog = new Dialog(context);
         this.dialog.setContentView(exportMode ? R.layout.export_popup_layout : R.layout.unexport_popup_layout);
 
-        initializeDialogViews(exportMode);
+        initializeDialogViews(exportMode,context);
 
         dialog.setOnDismissListener(dialogInterface -> {
             // Handle the dismissal
@@ -89,16 +83,17 @@ public class GPIOSettingsActivity extends PreferenceActivity {
     private void onDialogDismissed() {
     }
 
-    private void initializeDialogViews(boolean exportMode) {
+    private void initializeDialogViews(boolean exportMode,Context hostContext) {
         textInput = dialog.findViewById(R.id.text_popupinput);
 
         actionButton = dialog.findViewById(R.id.button_action);
         actionButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if (textInput.getText().toString().isEmpty())
                 {
-                    Toast.makeText(getBaseContext(), "Please enter a pin number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(hostContext, "Please enter a pin number", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -108,10 +103,10 @@ public class GPIOSettingsActivity extends PreferenceActivity {
                     }
                     if (exportMode)
                     {
-                        exportPin();
+                        exportPin(Integer.parseInt(textInput.getText().toString()));
                     } else
                     {
-                        unexportPin();
+                        unExportPin(Integer.parseInt(textInput.getText().toString()));
                     }
                 }
             }
