@@ -40,6 +40,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".GPIOSettingsActivity"
+            android:exported="true"
+            android:label="@string/gpio_setting">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Status_bar_Preference"
             android:label="@string/Status_bar_control"
             android:exported="true">
