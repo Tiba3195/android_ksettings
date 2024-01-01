@@ -2,12 +2,6 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditTextPreference
-        android:id="@+id/pinNumberEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Pin Number" />
-
     <Preference
         android:key="export_pin"
         android:title="Export Pin"
