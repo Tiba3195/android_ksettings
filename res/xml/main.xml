@@ -49,7 +49,7 @@
         android:iconSpaceReserved="false"
         android:summary="@string/gpio_setting_desc">
         <intent
-            android:targetClass="com.khadas.ksettings.GPIOActivity"
+            android:targetClass="com.khadas.ksettings.GPIOSettingsActivity"
             android:targetPackage="com.khadas.ksettings" />
     </PreferenceScreen>
 
