@@ -24,7 +24,7 @@
         android:theme="@style/Theme.SettingsBase">
 
         <uses-library
-            android:name="gpiocontrol"
+            android:name="libgpiocontrol"
             android:required="true" />
         <provider
             android:name="androidx.startup.InitializationProvider"
