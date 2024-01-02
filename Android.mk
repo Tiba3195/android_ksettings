@@ -6,8 +6,7 @@ include $(CLEAR_VARS)
 LOCAL_PACKAGE_NAME := KSettings
 
 # Source files
-LOCAL_SRC_FILES := $(call all-java-files-under, src) \
-                   $(call all-kotlin-files-under, src)
+LOCAL_SRC_FILES := $(call all-java-files-under, src)
 
 # Static libraries
 LOCAL_STATIC_JAVA_LIBRARIES := \
