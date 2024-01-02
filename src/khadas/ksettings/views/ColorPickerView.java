@@ -30,6 +30,7 @@ public class ColorPickerView extends LinearLayout {
 
     private float[] hsv = {0, 1, 1};
 
+    private PointF touchPoint;
     int getCurrentColor() {
         return Color.HSVToColor(hsv);
     }
@@ -75,28 +76,9 @@ public class ColorPickerView extends LinearLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        if(event.getAction() == MotionEvent.ACTION_UP) {
-            colorWheelView.setDrawCurrentColor(true);
-        }
-        else if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            colorWheelView.setDrawCurrentColor(false);
-        }
-        else if(event.getAction() == MotionEvent.ACTION_MOVE) {
-            colorWheelView.setDrawCurrentColor(false);
-        }
-        else if(event.getAction() == MotionEvent.ACTION_CANCEL) {
-            colorWheelView.setDrawCurrentColor(true);
-        }
-        else if(event.getAction() == MotionEvent.ACTION_OUTSIDE) {
-            colorWheelView.setDrawCurrentColor(true);
-        }
-        else {
-            colorWheelView.setDrawCurrentColor(true);
-        }
-
-        PointF touchPoint = new PointF(event.getX() - radius, event.getY() - radius);
+        touchPoint = new PointF(event.getX() - radius, event.getY() - radius);
         double touchRadius = Math.sqrt(Math.pow(touchPoint.x, 2) + Math.pow(touchPoint.y, 2));
-
+        colorWheelView.setTouchPoint(touchPoint);
         if (touchRadius <= radius) {
             float angle = (float) (Math.atan2(touchPoint.y, touchPoint.x) / Math.PI * 180f);
             angle = angle < 0 ? angle + 360f : angle;
@@ -110,7 +92,26 @@ public class ColorPickerView extends LinearLayout {
             return true;
         }
 
-
+        if(event.getAction() == MotionEvent.ACTION_UP) {
+            colorWheelView.setDrawCurrentColor(true);
+        }
+        else if(event.getAction() == MotionEvent.ACTION_DOWN) {
+            colorWheelView.setDrawCurrentColor(false);
+            return true;
+        }
+        else if(event.getAction() == MotionEvent.ACTION_MOVE) {
+            colorWheelView.setDrawCurrentColor(false);
+            return true;
+        }
+        else if(event.getAction() == MotionEvent.ACTION_CANCEL) {
+            colorWheelView.setDrawCurrentColor(true);
+        }
+        else if(event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+            colorWheelView.setDrawCurrentColor(true);
+        }
+        else {
+            colorWheelView.setDrawCurrentColor(true);
+        }
 
         return super.onTouchEvent(event);
     }

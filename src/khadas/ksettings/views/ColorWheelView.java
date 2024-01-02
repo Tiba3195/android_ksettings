@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.view.View;
@@ -13,8 +14,15 @@ import androidx.annotation.Nullable;
 public class ColorWheelView extends View {
 
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private  Paint touchpointpaint= new Paint(Paint.ANTI_ALIAS_FLAG);
     private int radius;
     private int[] colors = new int[361];
+
+    public void setTouchPoint(PointF touchPoint) {
+        this.touchPoint = touchPoint;
+    }
+
+    private PointF touchPoint;
 
     public boolean isDrawCurrentColor() {
         return drawCurrentColor;
@@ -43,9 +51,12 @@ public class ColorWheelView extends View {
 
     private void init() {
         paint.setStyle(Paint.Style.FILL);
+        touchpointpaint.setStyle(Paint.Style.FILL);
+        touchpointpaint.setColor(Color.WHITE);
         for (int i = 0; i < 361; i++) {
             colors[i] = Color.HSVToColor(new float[]{i, 1f, 1f});
         }
+
     }
 
     @Override
@@ -69,6 +80,7 @@ public class ColorWheelView extends View {
 
             if(isDrawCurrentColor())
             {
+                paint.setShader(null);
                 paint.setColor(Color.HSVToColor(new float[]{getTag().equals("hue") ? 0 : 360, 1f, 1f}));
                 canvas.drawCircle(radius, radius, radius, paint);
             }
@@ -76,6 +88,7 @@ public class ColorWheelView extends View {
                 SweepGradient sweepGradient = new SweepGradient(radius, radius, colors, null);
                 paint.setShader(sweepGradient);
                 canvas.drawCircle(radius, radius, radius, paint);
+                canvas.drawCircle(touchPoint.x, touchPoint.y, 10, touchpointpaint);
             }
         }
     }
