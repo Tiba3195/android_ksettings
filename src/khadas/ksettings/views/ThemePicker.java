@@ -104,7 +104,11 @@ public class ThemePicker extends LinearLayout {
         setupSeekBars();
         if(!isInEditMode())
         {
-            applyThemeSettings(seedColorView);
+            Map<String, String> currentSettings = ThemeChanger.getThemeCustomizationSettings();
+
+            // Extract the color string
+            String colorString = currentSettings.get("android.theme.customization.system_palette");
+            applyThemeSettings(colorString);
         }
 
         primaryColorView = findViewById(R.id.primary_color);
@@ -133,7 +137,10 @@ public class ThemePicker extends LinearLayout {
         {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
 
-                seedColorValueView.setText(getSeed());
+                String seed = String.valueOf(getSeed());
+                seed=  seed.replace("0x", "");
+                seedColorValueView.setText( seed);
+                applyThemeSettings(seed);
             }
         });
 
@@ -148,7 +155,11 @@ public class ThemePicker extends LinearLayout {
                 selectedThemeStyle = ThemeChanger.ThemeStyle.fromString((String) parent.getItemAtPosition(position));
                 selectedColorThemeStyle = Style.fromString((String) parent.getItemAtPosition(position));
                 CurrentSettings = ThemeChanger.getThemeCustomizationSettings();
-                applyThemeSettings(seedColorView);
+                Map<String, String> currentSettings = ThemeChanger.getThemeCustomizationSettings();
+
+                // Extract the color string
+                String colorString = currentSettings.get("android.theme.customization.system_palette");
+                applyThemeSettings(colorString);
                 spinnerThemeStyle.setSelection(position);
                 // Handle the selected theme style
             }
@@ -187,11 +198,8 @@ public class ThemePicker extends LinearLayout {
     }
 
 
-    public void applyThemeSettings(View seedColorView) {
-        Map<String, String> currentSettings = ThemeChanger.getThemeCustomizationSettings();
+    public void applyThemeSettings(String colorString) {
 
-        // Extract the color string
-        String colorString = currentSettings.get("android.theme.customization.system_palette");
         if (colorString != null) {
             // Add '#' if it's not present
             if (!colorString.startsWith("#")) {

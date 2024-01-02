@@ -186,7 +186,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView2"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="350dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="8dp"
@@ -249,8 +249,8 @@
                             <!-- Box 1 -->
                             <com.khadas.ksettings.views.ColorPickerView
                                 android:id="@+id/primary_color"
-                                android:layout_width="128dp"
-                                android:layout_height="128dp"
+                                android:layout_width="256dp"
+                                android:layout_height="256dp"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginTop="16dp"
                                 android:layout_marginRight="16dp"
@@ -259,8 +259,8 @@
                             <!-- Box 2 -->
                             <com.khadas.ksettings.views.ColorPickerView
                                 android:id="@+id/secondary_color"
-                                android:layout_width="128dp"
-                                android:layout_height="128dp"
+                                android:layout_width="256dp"
+                                android:layout_height="256dp"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginTop="16dp"
                                 android:layout_marginRight="16dp"
@@ -269,8 +269,8 @@
                             <!-- Box 3 -->
                             <com.khadas.ksettings.views.ColorPickerView
                                 android:id="@+id/tertiary_color"
-                                android:layout_width="128dp"
-                                android:layout_height="128dp"
+                                android:layout_width="256dp"
+                                android:layout_height="256dp"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginTop="16dp"
                                 android:layout_marginRight="16dp"

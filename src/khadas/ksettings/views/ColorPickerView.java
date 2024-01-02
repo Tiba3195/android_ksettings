@@ -74,6 +74,26 @@ public class ColorPickerView extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+        if(event.getAction() == MotionEvent.ACTION_UP) {
+            colorWheelView.setDrawCurrentColor(true);
+        }
+        else if(event.getAction() == MotionEvent.ACTION_DOWN) {
+            colorWheelView.setDrawCurrentColor(false);
+        }
+        else if(event.getAction() == MotionEvent.ACTION_MOVE) {
+            colorWheelView.setDrawCurrentColor(false);
+        }
+        else if(event.getAction() == MotionEvent.ACTION_CANCEL) {
+            colorWheelView.setDrawCurrentColor(true);
+        }
+        else if(event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+            colorWheelView.setDrawCurrentColor(true);
+        }
+        else {
+            colorWheelView.setDrawCurrentColor(true);
+        }
+
         PointF touchPoint = new PointF(event.getX() - radius, event.getY() - radius);
         double touchRadius = Math.sqrt(Math.pow(touchPoint.x, 2) + Math.pow(touchPoint.y, 2));
 
@@ -89,6 +109,9 @@ public class ColorPickerView extends LinearLayout {
             invalidate();
             return true;
         }
+
+
+
         return super.onTouchEvent(event);
     }
 

@@ -16,6 +16,16 @@ public class ColorWheelView extends View {
     private int radius;
     private int[] colors = new int[361];
 
+    public boolean isDrawCurrentColor() {
+        return drawCurrentColor;
+    }
+
+    public void setDrawCurrentColor(boolean drawCurrentColor) {
+        this.drawCurrentColor = drawCurrentColor;
+    }
+
+    private boolean drawCurrentColor = false;
+
     public ColorWheelView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
@@ -56,9 +66,17 @@ public class ColorWheelView extends View {
             canvas.drawCircle(radius, radius, radius, paint);
         }
         else {
-            SweepGradient sweepGradient = new SweepGradient(radius, radius, colors, null);
-            paint.setShader(sweepGradient);
-            canvas.drawCircle(radius, radius, radius, paint);
+
+            if(isDrawCurrentColor())
+            {
+                paint.setColor(Color.HSVToColor(new float[]{getTag().equals("hue") ? 0 : 360, 1f, 1f}));
+                canvas.drawCircle(radius, radius, radius, paint);
+            }
+            else {
+                SweepGradient sweepGradient = new SweepGradient(radius, radius, colors, null);
+                paint.setShader(sweepGradient);
+                canvas.drawCircle(radius, radius, radius, paint);
+            }
         }
     }
 }
