@@ -44,6 +44,8 @@ public class ThemePicker extends LinearLayout {
     private Button applyThemeButton;
     private  ColorPaletteView colorPaletteView;
 
+    private  ColorBlendedCircleView colorCircleView;
+
     private SeekBar seekBarHue, seekBarSaturation, seekBarBrightness;
     ThemeChanger.ThemeStyle selectedThemeStyle = ThemeChanger.ThemeStyle.TONAL_SPOT;
     Style selectedColorThemeStyle = Style.TONAL_SPOT;
@@ -134,6 +136,8 @@ public class ThemePicker extends LinearLayout {
         seekBarSaturation = findViewById(R.id.seekBarSaturation);
         seekBarBrightness = findViewById(R.id.seekBarBrightness);
         colorPaletteView = findViewById(R.id.colorPaletteView);
+        colorCircleView = findViewById(R.id.colorCircleView);
+
 
         // Set SeekBar initial values
         seekBarHue.setProgress((int) hsv[0]);
@@ -232,10 +236,11 @@ public class ThemePicker extends LinearLayout {
         int primaryColor = primaryColorView.getCurrentColor();
         int secondaryColor = secondaryColorView.getCurrentColor();
         int tertiaryColor = tertiaryColorView.getCurrentColor();
-
+        colorCircleView.setColors(primaryColor, secondaryColor, tertiaryColor);
         Log.d("ThemePicker", "Primary Color: " + primaryColor + ", Secondary Color: " + secondaryColor + ", Tertiary Color: " + tertiaryColor);
 
-        WallpaperColors wallpaperColors = new WallpaperColors(Color.valueOf(primaryColor), Color.valueOf(secondaryColor), Color.valueOf(tertiaryColor));
+        WallpaperColors wallpaperColors = WallpaperColors.fromBitmap(colorCircleView.getBitmap());
+
         colorScheme = new ColorScheme(wallpaperColors, true, selectedColorThemeStyle);
 
         int seed = colorScheme.getSeed();

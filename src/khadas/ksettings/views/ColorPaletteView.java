@@ -10,12 +10,11 @@ import com.khadas.util.ColorScheme;
 import com.khadas.util.TonalPalette;
 
 import java.util.List;
-
 public class ColorPaletteView extends View {
     private ColorScheme colorScheme;
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private int colorWidth;
-    private int maxColorsInRow;
+    private int colorHeight;
+    private int totalColors;
 
     public ColorPaletteView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -23,16 +22,15 @@ public class ColorPaletteView extends View {
 
     public void setColorScheme(ColorScheme scheme) {
         this.colorScheme = scheme;
-        updateMaxColorsInRow();
-        this.colorWidth = getWidth() / maxColorsInRow;
+        updateTotalColors();
+        this.colorHeight = getHeight() / totalColors;
         invalidate();
     }
 
-    private void updateMaxColorsInRow() {
-        int maxHues = colorScheme.getAllHues().stream().mapToInt(hue -> hue.getAllShades().size()).max().orElse(0);
-        int maxAccents = colorScheme.getAllAccentColors().size();
-        int maxNeutrals = colorScheme.getAllNeutralColors().size();
-        maxColorsInRow = Math.max(Math.max(maxHues, maxAccents), maxNeutrals);
+    private void updateTotalColors() {
+        totalColors = colorScheme.getAllHues().stream().mapToInt(hue -> hue.getAllShades().size()).sum();
+        totalColors += colorScheme.getAllAccentColors().size();
+        totalColors += colorScheme.getAllNeutralColors().size();
     }
 
     @Override
@@ -45,12 +43,12 @@ public class ColorPaletteView extends View {
         // Draw Hues
         for (TonalPalette hue : colorScheme.getAllHues()) {
             drawColorRow(canvas, hue.getAllShades(), y);
-            y += colorWidth;
+            y += hue.getAllShades().size() * colorHeight;
         }
 
         // Draw Accent Colors
         drawColorRow(canvas, colorScheme.getAllAccentColors(), y);
-        y += colorWidth;
+        y += colorScheme.getAllAccentColors().size() * colorHeight;
 
         // Draw Neutral Colors
         drawColorRow(canvas, colorScheme.getAllNeutralColors(), y);
@@ -58,10 +56,11 @@ public class ColorPaletteView extends View {
 
     private void drawColorRow(Canvas canvas, List<Integer> colors, int yPos) {
         int x = 0;
+        int colorWidth = getWidth();
         for (Integer color : colors) {
             paint.setColor(color);
-            canvas.drawRect(x, yPos, x + colorWidth, yPos + colorWidth, paint);
-            x += colorWidth;
+            canvas.drawRect(x, yPos, x + colorWidth, yPos + colorHeight, paint);
+            yPos += colorHeight;
         }
     }
 
@@ -69,7 +68,7 @@ public class ColorPaletteView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         if (colorScheme != null) {
-            colorWidth = w / maxColorsInRow;
+            colorHeight = h / totalColors;
         }
     }
 }
