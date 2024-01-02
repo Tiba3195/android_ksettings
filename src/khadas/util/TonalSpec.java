@@ -21,6 +21,8 @@ public class TonalSpec {
         this.chroma = chroma;
     }
 
+
+
     public List<Integer> shades(Cam sourceColor) {
         double hueValue = hue.get(sourceColor);
         double chromaValue = chroma.get(sourceColor);
