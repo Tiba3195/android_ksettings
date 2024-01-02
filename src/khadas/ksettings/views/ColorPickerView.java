@@ -86,15 +86,19 @@ public class ColorPickerView extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+        Log.d("ColorWheelVerbose", "<=======================================>");
         touchPoint = new PointF(event.getX() - radius, event.getY() - radius);
         double touchRadius = Math.sqrt(Math.pow(touchPoint.x, 2) + Math.pow(touchPoint.y, 2));
 
         Log.d("ColorWheelVerbose", "TouchEvent: Action=" + event.getAction() + ", X=" + event.getX() + ", Y=" + event.getY());
         Log.d("ColorWheelVerbose", "Calculated TouchPoint: " + touchPoint + ", TouchRadius: " + touchRadius + ", WheelRadius: " + radius);
 
+        colorWheelView.setTouchPoint(new PointF(event.getRawX(), event.getRawY()));
+
         // Check if the touch is within the radius
         if (touchRadius <= radius) {
-            colorWheelView.setTouchPoint(touchPoint);
+
             float angle = (float) (Math.atan2(touchPoint.y, touchPoint.x) / Math.PI * 180f);
             angle = angle < 0 ? angle + 360f : angle;
             hsv[0] = angle;
@@ -103,24 +107,26 @@ public class ColorPickerView extends LinearLayout {
 
             if (colorSelectedListener != null) {
                 colorSelectedListener.onColorSelected(Color.HSVToColor(hsv));
-                Log.d("ColorWheelVerbose", "Color selected: " + Color.HSVToColor(hsv));
             }
 
-            colorWheelView.setCurrentColor(Color.HSVToColor(hsv));
+            Log.d("ColorWheelVerbose", "Color selected: " + Color.HSVToColor(hsv));
 
+            colorWheelView.setCurrentColor(Color.HSVToColor(hsv));
             invalidate();
             handleColorWheelState(event.getAction());
+            Log.d("ColorWheelVerbose", "<=======================================>");
             return true; // Touch was within the color wheel
         }
 
         handleColorWheelState(event.getAction());
+        Log.d("ColorWheelVerbose", "<=======================================>");
         return super.onTouchEvent(event); // Pass the event up if not within the color wheel
     }
 
     private void handleColorWheelState(int action) {
         boolean drawCurrentColor = action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_OUTSIDE;
         colorWheelView.setDrawCurrentColor(drawCurrentColor);
-
+        colorWheelView.invalidate();
         Log.d("ColorWheelVerbose", "Handling State: Action=" + action + ", drawCurrentColor set to " + drawCurrentColor);
     }
 

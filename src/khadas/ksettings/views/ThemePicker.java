@@ -207,6 +207,7 @@ public class ThemePicker extends LinearLayout {
 
     @RequiresApi(api = Build.VERSION_CODES.O_MR1)
     private int getSeed() {
+        Log.d("ThemePicker", "<=======================================>");
         Log.d("ThemePicker", "getSeed called");
 
         int primaryColor = primaryColorView.getCurrentColor();
@@ -221,12 +222,13 @@ public class ThemePicker extends LinearLayout {
 
         int seed = colorScheme.getSeed();
         Log.d("ThemePicker", "Generated Seed: " + seed);
-
+        Log.d("ThemePicker", "<=======================================>");
         return seed;
     }
 
 
     public void applyThemeSettings(String colorString) {
+        Log.d("ThemePicker", "<=======================================>");
         Log.d("ThemePicker", "applyThemeSettings called with colorString: " + colorString);
 
         if (colorString != null) {
@@ -251,6 +253,7 @@ public class ThemePicker extends LinearLayout {
         } else {
             Log.d("ThemePicker", "Received null colorString");
         }
+        Log.d("ThemePicker", "<=======================================>");
     }
     // Additional methods to interact with the custom view (like setters, getters)
 }

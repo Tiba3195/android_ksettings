@@ -113,7 +113,9 @@ public class ThemeChanger {
         }
     }
 
-  static   public Map<String, String> getThemeCustomizationSettings() {
+    static public Map<String, String> getThemeCustomizationSettings() {
+        Log.d("ThemeSettings", "<=======================================>");
+        Log.d("ThemeSettings", "Fetching theme customization settings");
         Process process = null;
         BufferedReader reader = null;
         Map<String, String> settings = new HashMap<>();
@@ -124,10 +126,12 @@ public class ThemeChanger {
 
             String line;
             while ((line = reader.readLine()) != null) {
+                Log.d("ThemeSettings", "Read line: " + line);
                 parseSettingsLine(line, settings);
             }
 
         } catch (IOException e) {
+            Log.e("ThemeSettings", "IOException occurred", e);
             e.printStackTrace();
         } finally {
             try {
@@ -138,25 +142,42 @@ public class ThemeChanger {
                     process.destroy();
                 }
             } catch (IOException e) {
+                Log.e("ThemeSettings", "IOException occurred in finally block", e);
                 e.printStackTrace();
             }
         }
 
+        Log.d("ThemeSettings", "Settings fetched: " + settings);
+        Log.d("ThemeSettings", "<=======================================>");
         return settings;
     }
 
     static private void parseSettingsLine(String line, Map<String, String> settings) {
-        // Assuming the format is: {key1:value1, key2:value2}
+        Log.d("ThemeSettings", "<=======================================>");
+        Log.d("SettingsParser", "Parsing line: " + line);
         line = line.trim();
         if (line.startsWith("{") && line.endsWith("}")) {
+            Log.d("SettingsParser", "Line starts and ends with curly braces");
             line = line.substring(1, line.length() - 1); // Remove curly braces
+            Log.d("SettingsParser", "Line after removing curly braces: " + line);
+
             String[] pairs = line.split(",\\s*");
             for (String pair : pairs) {
+                Log.d("SettingsParser", "Processing pair: " + pair);
                 String[] keyValue = pair.split(":");
                 if (keyValue.length == 2) {
-                    settings.put(keyValue[0].trim(), keyValue[1].trim());
+                    String key = keyValue[0].trim(); // Key is trimmed
+                    String value = keyValue[1].trim(); // Value is trimmed
+                    Log.d("SettingsParser", "Parsed key: " + key + ", value: " + value);
+                    settings.put(key, value);
+                } else {
+                    Log.d("SettingsParser", "Invalid key-value pair: " + pair);
                 }
             }
+        } else {
+            Log.d("SettingsParser", "Line does not start and end with curly braces");
         }
+
+        Log.d("ThemeSettings", "<=======================================>");
     }
 }
