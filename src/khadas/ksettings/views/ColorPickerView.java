@@ -32,8 +32,10 @@ public class ColorPickerView extends LinearLayout {
     private float[] hsv = {0, 1, 1};
 
     private PointF touchPoint;
+
+    private int CurrentColor=0;
     int getCurrentColor() {
-        return Color.HSVToColor(hsv);
+        return CurrentColor;
     }
 
     private OnColorSelectedListener colorSelectedListener;
@@ -111,7 +113,8 @@ public class ColorPickerView extends LinearLayout {
 
             Log.d("ColorWheelVerbose", "Color selected: " + Color.HSVToColor(hsv));
 
-            colorWheelView.setCurrentColor(Color.HSVToColor(hsv));
+            CurrentColor = Color.HSVToColor(hsv);
+            colorWheelView.setCurrentColor(CurrentColor);
             invalidate();
             handleColorWheelState(event.getAction());
             Log.d("ColorWheelVerbose", "<=======================================>");

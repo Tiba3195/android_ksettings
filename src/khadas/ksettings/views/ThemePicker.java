@@ -167,10 +167,9 @@ public class ThemePicker extends LinearLayout {
         {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
 
-                String seed = String.valueOf(getSeed());
-                seed=  seed.replace("0x", "");
-                seedColorValueView.setText( seed);
-                applyThemeSettings(seed);
+                String colorHex = String.format("#%06X", (0xFFFFFF & getSeed()));
+                seedColorValueView.setText( colorHex);
+                applyThemeSettings(colorHex);
             }
         });
 
