@@ -35,15 +35,15 @@ public class ThemePicker extends LinearLayout {
     private Map<String, String> CurrentSettings;
     String[] themeStyles = Arrays.toString(ThemeChanger.ThemeStyle.values()).replaceAll("^.|.$", "").split(", ");
     private Spinner spinnerThemeStyle;
-
+    ColorScheme colorScheme;
     private TextView seedColorValueView;
     private View seedColorView;
     private ColorPickerView primaryColorView;
     private ColorPickerView secondaryColorView;
     private ColorPickerView tertiaryColorView;
     private Button applyThemeButton;
+    private  ColorPaletteView colorPaletteView;
 
-    private Button generateSeedButton;
     private SeekBar seekBarHue, seekBarSaturation, seekBarBrightness;
     ThemeChanger.ThemeStyle selectedThemeStyle = ThemeChanger.ThemeStyle.TONAL_SPOT;
     Style selectedColorThemeStyle = Style.TONAL_SPOT;
@@ -133,6 +133,7 @@ public class ThemePicker extends LinearLayout {
         seekBarHue = findViewById(R.id.seekBarHue);
         seekBarSaturation = findViewById(R.id.seekBarSaturation);
         seekBarBrightness = findViewById(R.id.seekBarBrightness);
+        colorPaletteView = findViewById(R.id.colorPaletteView);
 
         // Set SeekBar initial values
         seekBarHue.setProgress((int) hsv[0]);
@@ -142,37 +143,55 @@ public class ThemePicker extends LinearLayout {
         setupSeekBars();
 
         primaryColorView = findViewById(R.id.primary_color);
+        primaryColorView.setOnColorSelectedListener(color -> {
+            Log.d("ThemePicker", "Primary Color Selected: " + color);
 
-        primaryColorView.setOnClickListener(v -> {
-            Log.d("ThemePicker", "Show Color Picker: primaryColorView");
-        });
-
-        secondaryColorView = findViewById(R.id.secondary_color);
-
-        secondaryColorView.setOnClickListener(v -> {
-            Log.d("ThemePicker", "Show Color Picker: secondaryColorView");
-        });
-
-        tertiaryColorView = findViewById(R.id.tertiary_color);
-
-        tertiaryColorView.setOnClickListener(v -> {
-            Log.d("ThemePicker", "Show Color Picker: tertiaryColorView");
-        });
-
-        applyThemeButton = findViewById(R.id.button_apply_seed);
-
-        generateSeedButton = findViewById(R.id.button_generate_seed);
-
-        generateSeedButton.setOnClickListener(v ->
-        {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
 
                 String colorHex = String.format("#%06X", (0xFFFFFF & getSeed()));
                 seedColorValueView.setText( colorHex);
                 applyThemeSettings(colorHex);
             }
+
         });
 
+        primaryColorView.setOnClickListener(v -> {
+            Log.d("ThemePicker", "Show Color Picker: primaryColorView");
+        });
+
+        secondaryColorView = findViewById(R.id.secondary_color);
+        secondaryColorView.setOnColorSelectedListener(color -> {
+            Log.d("ThemePicker", "Primary Color Selected: " + color);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+
+                String colorHex = String.format("#%06X", (0xFFFFFF & getSeed()));
+                seedColorValueView.setText( colorHex);
+                applyThemeSettings(colorHex);
+            }
+
+        });
+        secondaryColorView.setOnClickListener(v -> {
+            Log.d("ThemePicker", "Show Color Picker: secondaryColorView");
+        });
+
+        tertiaryColorView = findViewById(R.id.tertiary_color);
+        tertiaryColorView.setOnColorSelectedListener(color -> {
+            Log.d("ThemePicker", "Primary Color Selected: " + color);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+
+                String colorHex = String.format("#%06X", (0xFFFFFF & getSeed()));
+                seedColorValueView.setText( colorHex);
+                applyThemeSettings(colorHex);
+            }
+
+        });
+        tertiaryColorView.setOnClickListener(v -> {
+            Log.d("ThemePicker", "Show Color Picker: tertiaryColorView");
+        });
+
+        applyThemeButton = findViewById(R.id.button_apply_seed);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, themeStyles);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
@@ -200,6 +219,7 @@ public class ThemePicker extends LinearLayout {
         {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                 ThemeChanger.setThemeColor(getSeed(), selectedThemeStyle);
+
             }
         });
     }
@@ -215,11 +235,12 @@ public class ThemePicker extends LinearLayout {
 
         Log.d("ThemePicker", "Primary Color: " + primaryColor + ", Secondary Color: " + secondaryColor + ", Tertiary Color: " + tertiaryColor);
 
-        ColorScheme colorScheme;
         WallpaperColors wallpaperColors = new WallpaperColors(Color.valueOf(primaryColor), Color.valueOf(secondaryColor), Color.valueOf(tertiaryColor));
         colorScheme = new ColorScheme(wallpaperColors, true, selectedColorThemeStyle);
 
         int seed = colorScheme.getSeed();
+        colorPaletteView.setColorScheme(colorScheme);
+        colorPaletteView.invalidate();
         Log.d("ThemePicker", "Generated Seed: " + seed);
         Log.d("ThemePicker", "<=======================================>");
         return seed;

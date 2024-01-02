@@ -26,22 +26,24 @@
             app:cardCornerRadius="32dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+                android:layout_width="800dp"
                 android:layout_height="460dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView"
-                    android:layout_width="600dp"
+                    android:layout_width="500dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     app:cardBackgroundColor="@android:color/system_accent1_700"
                     app:cardCornerRadius="32dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cardView3"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button_generate_seed">
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -94,8 +96,8 @@
 
                                 <View
                                     android:id="@+id/seed_color"
-                                    android:layout_width="300dp"
-                                    android:layout_height="96dp"
+                                    android:layout_width="256dp"
+                                    android:layout_height="128dp"
                                     android:background="#000000"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +117,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintVertical_bias="0.3" />
+                                    app:layout_constraintVertical_bias="0.35" />
 
                                 <Button
                                     android:id="@+id/button_apply_seed"
@@ -210,34 +212,16 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <Button
-                    android:id="@+id/button_generate_seed"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="-8dp"
-                    android:layout_marginEnd="32dp"
-                    android:backgroundTint="@android:color/system_accent1_700"
-                    android:backgroundTintMode="multiply"
-                    android:text="Generate Seed Color"
-                    android:textColor="@android:color/system_accent1_200"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-                    app:layout_constraintVertical_bias="0.0" />
-
-
                 <LinearLayout
                     android:id="@+id/linearLayout6"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="150dp"
                     android:layout_marginTop="-8dp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cardView3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0">
@@ -274,6 +258,34 @@
 
 
                 </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="@android:color/system_accent1_700"
+                    app:cardCornerRadius="32dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.khadas.ksettings.views.ColorPaletteView
+                        android:id="@+id/colorPaletteView"
+                        android:layout_width="256dp"
+                        android:layout_height="match_parent"
+                        android:elevation="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cardView"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.cardview.widget.CardView>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
