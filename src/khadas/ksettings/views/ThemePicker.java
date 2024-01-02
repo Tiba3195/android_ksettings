@@ -22,11 +22,14 @@ import com.khadas.util.ThemeChanger;
 import com.khadas.util.ColorSchemeHelper;
 
 import java.util.Arrays;
+import java.util.Map;
 
 public class ThemePicker extends LinearLayout {
-
+    private Map<String, String> CurrentSettings;
     String[] themeStyles = Arrays.toString(ThemeChanger.ThemeStyle.values()).replaceAll("^.|.$", "").split(", ");
     private Spinner spinnerThemeStyle;
+
+    private View seedColorView;
     private View primaryColorView;
     private View secondaryColorView;
     private View tertiaryColorView;
@@ -56,6 +59,7 @@ public class ThemePicker extends LinearLayout {
 
         // Initialize components
         spinnerThemeStyle = findViewById(R.id.spinnerThemeStyle);
+        seedColorView= findViewById(R.id.seed_color);
         primaryColorView = findViewById(R.id.primary_color);
 
         primaryColorView.setOnClickListener(v -> {
@@ -86,6 +90,8 @@ public class ThemePicker extends LinearLayout {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedThemeStyle = ThemeChanger.ThemeStyle.fromString((String) parent.getItemAtPosition(position));
                 selectedColorThemeStyle = Style.fromString((String) parent.getItemAtPosition(position));
+                CurrentSettings = ThemeChanger.getThemeCustomizationSettings();
+                applyThemeSettings(seedColorView);
                 // Handle the selected theme style
             }
 
@@ -130,7 +136,21 @@ public class ThemePicker extends LinearLayout {
 
 
     }
+    public void applyThemeSettings(View seedColorView) {
+        Map<String, String> currentSettings = ThemeChanger.getThemeCustomizationSettings();
 
+        // Assuming 'system_palette' contains a valid color code
+        String colorString = currentSettings.get("android.theme.customization.system_palette");
+        if (colorString != null) {
+            try {
+                int color = Color.parseColor("#" + colorString);
+                seedColorView.setBackgroundColor(color);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+                // Handle invalid color string
+            }
+        }
+    }
     // Additional methods to interact with the custom view (like setters, getters)
 }
 
