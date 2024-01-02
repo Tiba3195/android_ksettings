@@ -22,7 +22,7 @@ public class ColorWheelView extends View {
         this.touchPoint = touchPoint;
     }
 
-    private PointF touchPoint;
+    private PointF touchPoint = new PointF(0, 0);
 
     public boolean isDrawCurrentColor() {
         return drawCurrentColor;
