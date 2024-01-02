@@ -5,36 +5,46 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.view.View;
+import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import com.khadas.ksettings.R;
 import com.khadas.util.ColorScheme;
 import com.khadas.util.Style;
 import com.khadas.util.ThemeChanger;
-import com.khadas.util.ColorSchemeHelper;
 
 import java.util.Arrays;
 import java.util.Map;
 
 public class ThemePicker extends LinearLayout {
+
+    private float[] hsv = {0, 1, 1};
+
     private Map<String, String> CurrentSettings;
     String[] themeStyles = Arrays.toString(ThemeChanger.ThemeStyle.values()).replaceAll("^.|.$", "").split(", ");
     private Spinner spinnerThemeStyle;
 
+    private TextView seedColorValueView;
     private View seedColorView;
-    private View primaryColorView;
-    private View secondaryColorView;
-    private View tertiaryColorView;
+    private ColorPickerView primaryColorView;
+    private ColorPickerView secondaryColorView;
+    private ColorPickerView tertiaryColorView;
     private Button applyThemeButton;
 
+    private Button generateSeedButton;
+    private SeekBar seekBarHue, seekBarSaturation, seekBarBrightness;
     ThemeChanger.ThemeStyle selectedThemeStyle = ThemeChanger.ThemeStyle.TONAL_SPOT;
     Style selectedColorThemeStyle = Style.TONAL_SPOT;
 
@@ -53,6 +63,33 @@ public class ThemePicker extends LinearLayout {
         init(context);
     }
 
+    private void setupSeekBars() {
+        SeekBar.OnSeekBarChangeListener listener = new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (seekBar == seekBarHue) {
+                    hsv[0] = progress;
+                } else if (seekBar == seekBarSaturation) {
+                    hsv[1] = progress / 100f;
+                } else if (seekBar == seekBarBrightness) {
+                    hsv[2] = progress / 100f;
+                }
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        };
+
+        seekBarHue.setOnSeekBarChangeListener(listener);
+        seekBarSaturation.setOnSeekBarChangeListener(listener);
+        seekBarBrightness.setOnSeekBarChangeListener(listener);
+    }
+
+
     private void init(Context context) {
         // Inflate the layout
         LayoutInflater.from(context).inflate(R.layout.theme_picker_layout, this, true);
@@ -60,7 +97,11 @@ public class ThemePicker extends LinearLayout {
         // Initialize components
         spinnerThemeStyle = findViewById(R.id.spinnerThemeStyle);
         seedColorView= findViewById(R.id.seed_color);
-
+        seedColorValueView = findViewById(R.id.text_seed_color_value);
+        seekBarHue = findViewById(R.id.seekBarHue);
+        seekBarSaturation = findViewById(R.id.seekBarSaturation);
+        seekBarBrightness = findViewById(R.id.seekBarBrightness);
+        setupSeekBars();
         if(!isInEditMode())
         {
             applyThemeSettings(seedColorView);
@@ -84,7 +125,17 @@ public class ThemePicker extends LinearLayout {
             Log.d("ThemePicker", "Show Color Picker: tertiaryColorView");
         });
 
-        applyThemeButton = findViewById(R.id.button);
+        applyThemeButton = findViewById(R.id.button_apply_seed);
+
+        generateSeedButton = findViewById(R.id.button_generate_seed);
+
+        generateSeedButton.setOnClickListener(v ->
+        {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+
+                seedColorValueView.setText(getSeed());
+            }
+        });
 
         Spinner spinnerThemeStyle = findViewById(R.id.spinnerThemeStyle);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, themeStyles);
@@ -98,6 +149,7 @@ public class ThemePicker extends LinearLayout {
                 selectedColorThemeStyle = Style.fromString((String) parent.getItemAtPosition(position));
                 CurrentSettings = ThemeChanger.getThemeCustomizationSettings();
                 applyThemeSettings(seedColorView);
+                spinnerThemeStyle.setSelection(position);
                 // Handle the selected theme style
             }
 
@@ -110,38 +162,31 @@ public class ThemePicker extends LinearLayout {
         // Example usage (like setting listeners)
         applyThemeButton.setOnClickListener(v ->
         {
-            int primaryColor =0;
-            int secondaryColor =0;
-            int tertiaryColor=0;
-
-            // Assuming 'view' is your View object
-            Drawable primaryColorData = primaryColorView.getBackground();
-            if (primaryColorData instanceof ColorDrawable) {
-                 primaryColor = ((ColorDrawable) primaryColorData).getColor();
-                // 'color' is the background color of the view
-            }
-
-            Drawable secondaryColorData = secondaryColorView.getBackground();
-            if (secondaryColorData instanceof ColorDrawable) {
-                 secondaryColor = ((ColorDrawable) secondaryColorData).getColor();
-                // 'color' is the background color of the view
-            }
-
-            Drawable tertiaryColorData = tertiaryColorView.getBackground();
-            if (tertiaryColorData instanceof ColorDrawable) {
-                tertiaryColor = ((ColorDrawable) tertiaryColorData).getColor();
-                // 'color' is the background color of the view
-            }
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O_MR1) {
-                WallpaperColors wallpaperColors = new WallpaperColors(Color.valueOf(primaryColor), Color.valueOf(secondaryColor), Color.valueOf(tertiaryColor));
-                ColorScheme colorScheme = new ColorScheme(wallpaperColors,true, selectedColorThemeStyle);
-                ThemeChanger.setThemeColor(colorScheme.getSeed(), selectedThemeStyle);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                ThemeChanger.setThemeColor(getSeed(), selectedThemeStyle);
             }
         });
-
-
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O_MR1)
+    private int getSeed()
+    {
+        int primaryColor =0;
+        int secondaryColor =0;
+        int tertiaryColor=0;
+
+        primaryColor = primaryColorView.getCurrentColor();
+        secondaryColor = secondaryColorView.getCurrentColor();
+        tertiaryColor =tertiaryColorView.getCurrentColor();
+
+        ColorScheme colorScheme;
+        WallpaperColors wallpaperColors = new WallpaperColors(Color.valueOf(primaryColor), Color.valueOf(secondaryColor), Color.valueOf(tertiaryColor));
+        colorScheme = new ColorScheme(wallpaperColors,true, selectedColorThemeStyle);
+
+        return   colorScheme.getSeed();
+    }
+
+
     public void applyThemeSettings(View seedColorView) {
         Map<String, String> currentSettings = ThemeChanger.getThemeCustomizationSettings();
 
@@ -152,6 +197,8 @@ public class ThemePicker extends LinearLayout {
             if (!colorString.startsWith("#")) {
                 colorString = "#" + colorString;
             }
+
+            seedColorValueView.setText(colorString);
 
             try {
                 int color = Color.parseColor(colorString);

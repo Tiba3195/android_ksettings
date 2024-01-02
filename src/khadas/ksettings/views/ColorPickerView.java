@@ -30,7 +30,10 @@ public class ColorPickerView extends LinearLayout {
 
     private float[] hsv = {0, 1, 1};
 
-    private SeekBar seekBarHue, seekBarSaturation, seekBarBrightness;
+    int getCurrentColor() {
+        return Color.HSVToColor(hsv);
+    }
+
     private OnColorSelectedListener colorSelectedListener;
 
     public ColorPickerView(Context context, AttributeSet attrs) {
@@ -62,43 +65,11 @@ public class ColorPickerView extends LinearLayout {
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.color_picker_view, this, true);
         colorWheelView = findViewById(R.id.colorWheel);
-        seekBarHue = findViewById(R.id.seekBarHue);
-        seekBarSaturation = findViewById(R.id.seekBarSaturation);
-        seekBarBrightness = findViewById(R.id.seekBarBrightness);
 
         colors = new int[361];
         for (int i = 0; i < 361; i++) {
             colors[i] = Color.HSVToColor(new float[]{i, 1f, 1f});
         }
-
-        setupSeekBars();
-
-    }
-
-    private void setupSeekBars() {
-        SeekBar.OnSeekBarChangeListener listener = new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (seekBar == seekBarHue) {
-                    hsv[0] = progress;
-                } else if (seekBar == seekBarSaturation) {
-                    hsv[1] = progress / 100f;
-                } else if (seekBar == seekBarBrightness) {
-                    hsv[2] = progress / 100f;
-                }
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
-        };
-
-        seekBarHue.setOnSeekBarChangeListener(listener);
-        seekBarSaturation.setOnSeekBarChangeListener(listener);
-        seekBarBrightness.setOnSeekBarChangeListener(listener);
     }
 
     @Override
