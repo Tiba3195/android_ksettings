@@ -135,8 +135,8 @@ public class ThemePicker extends LinearLayout {
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O_MR1) {
                 WallpaperColors wallpaperColors = new WallpaperColors(Color.valueOf(primaryColor), Color.valueOf(secondaryColor), Color.valueOf(tertiaryColor));
-                ColorScheme colorScheme = new ColorScheme(wallpaperColors,true, Style.EXPRESSIVE);
-                ThemeChanger.setThemeColor(colorScheme.getSeed(), ThemeChanger.ThemeStyle.EXPRESSIVE);
+                ColorScheme colorScheme = new ColorScheme(wallpaperColors,true, selectedColorThemeStyle);
+                ThemeChanger.setThemeColor(colorScheme.getSeed(), selectedThemeStyle);
             }
         });
 
