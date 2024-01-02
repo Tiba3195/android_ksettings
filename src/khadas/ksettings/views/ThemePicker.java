@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -56,8 +57,23 @@ public class ThemePicker extends LinearLayout {
         // Initialize components
         spinnerThemeStyle = findViewById(R.id.spinnerThemeStyle);
         primaryColorView = findViewById(R.id.primary_color);
+
+        primaryColorView.setOnClickListener(v -> {
+            Log.d("ThemePicker", "Show Color Picker: primaryColorView");
+        });
+
         secondaryColorView = findViewById(R.id.secondary_color);
+
+        secondaryColorView.setOnClickListener(v -> {
+            Log.d("ThemePicker", "Show Color Picker: secondaryColorView");
+        });
+
         tertiaryColorView = findViewById(R.id.tertiary_color);
+
+        tertiaryColorView.setOnClickListener(v -> {
+            Log.d("ThemePicker", "Show Color Picker: tertiaryColorView");
+        });
+
         applyThemeButton = findViewById(R.id.button);
 
         Spinner spinnerThemeStyle = findViewById(R.id.spinnerThemeStyle);

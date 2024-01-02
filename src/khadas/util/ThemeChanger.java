@@ -1,6 +1,8 @@
 package com.khadas.util;
 
 import android.graphics.Color;
+import android.util.Log;
+
 import java.io.OutputStream;
 import java.io.IOException;
 
@@ -61,14 +63,17 @@ public class ThemeChanger {
     private static void executeShellCommand(String command) {
         Process process = null;
         OutputStream os = null;
+        Log.d("ThemeChanger", "executeShellCommand: " + command);
         try {
             process = Runtime.getRuntime().exec("su");
             os = process.getOutputStream();
             os.write((command + "\n").getBytes());
             os.write("exit\n".getBytes());
             os.flush();
+            Log.d("ThemeChanger", "Command sent" );
         } catch (IOException e) {
             e.printStackTrace();
+            Log.d("ThemeChanger", "IOException" );
         } finally {
             try {
                 if (os != null) {
@@ -77,6 +82,7 @@ public class ThemeChanger {
                 process.destroy();
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.d("ThemeChanger", "finally IOException" );
             }
         }
     }
