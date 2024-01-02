@@ -72,10 +72,8 @@ public class ThemeChanger {
         Log.d("ThemeChanger", "executeShellCommand: " + command);
 
         try {
-            process = Runtime.getRuntime().exec("su");
+            process = Runtime.getRuntime().exec(command);
             os = process.getOutputStream();
-            os.write((command + "\n").getBytes());
-            os.write("exit\n".getBytes());
             os.flush();
 
             reader = new BufferedReader(new InputStreamReader(process.getInputStream()));

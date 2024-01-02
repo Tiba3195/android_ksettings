@@ -60,6 +60,12 @@ public class ThemePicker extends LinearLayout {
         // Initialize components
         spinnerThemeStyle = findViewById(R.id.spinnerThemeStyle);
         seedColorView= findViewById(R.id.seed_color);
+
+        if(!isInEditMode())
+        {
+            applyThemeSettings(seedColorView);
+        }
+
         primaryColorView = findViewById(R.id.primary_color);
 
         primaryColorView.setOnClickListener(v -> {
@@ -139,11 +145,16 @@ public class ThemePicker extends LinearLayout {
     public void applyThemeSettings(View seedColorView) {
         Map<String, String> currentSettings = ThemeChanger.getThemeCustomizationSettings();
 
-        // Assuming 'system_palette' contains a valid color code
+        // Extract the color string
         String colorString = currentSettings.get("android.theme.customization.system_palette");
         if (colorString != null) {
+            // Add '#' if it's not present
+            if (!colorString.startsWith("#")) {
+                colorString = "#" + colorString;
+            }
+
             try {
-                int color = Color.parseColor("#" + colorString);
+                int color = Color.parseColor(colorString);
                 seedColorView.setBackgroundColor(color);
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
