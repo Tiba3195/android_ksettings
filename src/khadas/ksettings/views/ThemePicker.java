@@ -156,6 +156,7 @@ public class ThemePicker extends LinearLayout {
             try {
                 int color = Color.parseColor(colorString);
                 seedColorView.setBackgroundColor(color);
+                seedColorView.invalidate();
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
                 // Handle invalid color string

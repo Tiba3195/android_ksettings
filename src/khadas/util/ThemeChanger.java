@@ -72,8 +72,10 @@ public class ThemeChanger {
         Log.d("ThemeChanger", "executeShellCommand: " + command);
 
         try {
-            process = Runtime.getRuntime().exec(command);
+            process = Runtime.getRuntime().exec("su"); // Execute 'su' to gain root access
             os = process.getOutputStream();
+            os.write((command + "\n").getBytes()); // Send your command
+            os.write("exit\n".getBytes()); // Exit from 'su' shell
             os.flush();
 
             reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
