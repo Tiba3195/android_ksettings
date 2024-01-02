@@ -54,12 +54,12 @@
     </PreferenceScreen>
 
     <PreferenceScreen
-        android:title="@string/can_bus_setting"
         android:iconSpaceReserved="false"
-        android:summary="@string/can_bus_setting_desc">
+        android:summary="@string/theme_setting_desc"
+        android:title="@string/theme_setting">
         <intent
-            android:targetClass="com.khadas.schpwronoff.AlarmClock"
-            android:targetPackage="com.khadas.schpwronoff" />
+            android:targetClass="com.khadas.ksettings.ThemePickerActivity"
+            android:targetPackage="com.khadas.ksettings" />
     </PreferenceScreen>
 
 </PreferenceScreen>

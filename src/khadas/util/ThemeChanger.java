@@ -12,8 +12,25 @@ public class ThemeChanger {
         SPRITZ,     // Desaturated theme, almost grayscale.
         RAINBOW,    // Additional custom theme style.
         FRUIT_SALAD, // Additional custom theme style.
-        MONOCHROMATIC // Additional custom theme style.,
+        MONOCHROMATIC; // Additional custom theme style.,
+
+        // Convert enum to String
+        public String toString() {
+            return this.name();
+        }
+
+        // Convert String to enum
+        public static ThemeStyle fromString(String text) {
+            for (ThemeStyle style : ThemeStyle.values()) {
+                if (style.name().equalsIgnoreCase(text)) {
+                    return style;
+                }
+            }
+            throw new IllegalArgumentException("No constant with text " + text + " found");
+        }
     }
+
+
 
     public static void setThemeColor(int seed, ThemeStyle themeStyle) {
         String palette = convertColorToHex(seed);

@@ -97,4 +97,19 @@ public enum Style {
     Style(CoreSpec coreSpec) {
         this.coreSpec = coreSpec;
     }
+
+    // Convert enum to String
+    public String toString() {
+        return this.name();
+    }
+
+    // Convert String to enum
+    public static Style fromString(String text) {
+        for (Style style : Style.values()) {
+            if (style.name().equalsIgnoreCase(text)) {
+                return style;
+            }
+        }
+        throw new IllegalArgumentException("No constant with text " + text + " found");
+    }
 }

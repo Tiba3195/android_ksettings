@@ -228,4 +228,6 @@
     <string name="gpio_setting_desc" translatable="false">Used to Export/Unexport Pins and Get Pin Values</string>
     <string name="can_bus_setting" translatable="false">CAN Bus Settings</string>
     <string name="can_bus_setting_desc" translatable="false">Control the can bus</string>
+    <string name="theme_setting" translatable="false">Theme Settings</string>
+    <string name="theme_setting_desc" translatable="false">Customize the look of your device</string>
 </resources>

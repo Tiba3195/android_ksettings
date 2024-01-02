@@ -3,6 +3,8 @@ package com.khadas.ksettings.views;
 import android.app.WallpaperColors;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.AdapterView;
@@ -24,10 +26,13 @@ public class ThemePicker extends LinearLayout {
 
     String[] themeStyles = Arrays.toString(ThemeChanger.ThemeStyle.values()).replaceAll("^.|.$", "").split(", ");
     private Spinner spinnerThemeStyle;
-    private View primaryColor;
-    private View secondaryColor;
-    private View tertiaryColor;
+    private View primaryColorView;
+    private View secondaryColorView;
+    private View tertiaryColorView;
     private Button applyThemeButton;
+
+    ThemeChanger.ThemeStyle selectedThemeStyle = ThemeChanger.ThemeStyle.TONAL_SPOT;
+    Style selectedColorThemeStyle = Style.TONAL_SPOT;
 
     public ThemePicker(Context context) {
         super(context);
@@ -50,20 +55,10 @@ public class ThemePicker extends LinearLayout {
 
         // Initialize components
         spinnerThemeStyle = findViewById(R.id.spinnerThemeStyle);
-        primaryColor = findViewById(R.id.primary_color);
-        secondaryColor = findViewById(R.id.secondary_color);
-        tertiaryColor = findViewById(R.id.tertiary_color);
+        primaryColorView = findViewById(R.id.primary_color);
+        secondaryColorView = findViewById(R.id.secondary_color);
+        tertiaryColorView = findViewById(R.id.tertiary_color);
         applyThemeButton = findViewById(R.id.button);
-
-        // Example usage (like setting listeners)
-        applyThemeButton.setOnClickListener(v ->
-        {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O_MR1) {
-                WallpaperColors wallpaperColors = new WallpaperColors(Color.valueOf(Color.RED), Color.valueOf(Color.BLUE), Color.valueOf(Color.GREEN));
-                ColorScheme colorScheme = new ColorScheme(wallpaperColors,true, Style.EXPRESSIVE);
-                ThemeChanger.setThemeColor(colorScheme.getSeed(), ThemeChanger.ThemeStyle.EXPRESSIVE);
-            }
-        });
 
         Spinner spinnerThemeStyle = findViewById(R.id.spinnerThemeStyle);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, themeStyles);
@@ -73,7 +68,8 @@ public class ThemePicker extends LinearLayout {
         spinnerThemeStyle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedThemeStyle = (String) parent.getItemAtPosition(position);
+                selectedThemeStyle = ThemeChanger.ThemeStyle.fromString((String) parent.getItemAtPosition(position));
+                selectedColorThemeStyle = Style.fromString((String) parent.getItemAtPosition(position));
                 // Handle the selected theme style
             }
 
@@ -82,6 +78,41 @@ public class ThemePicker extends LinearLayout {
                 // Another interface callback
             }
         });
+
+        // Example usage (like setting listeners)
+        applyThemeButton.setOnClickListener(v ->
+        {
+            int primaryColor =0;
+            int secondaryColor =0;
+            int tertiaryColor=0;
+
+            // Assuming 'view' is your View object
+            Drawable primaryColorData = primaryColorView.getBackground();
+            if (primaryColorData instanceof ColorDrawable) {
+                 primaryColor = ((ColorDrawable) primaryColorData).getColor();
+                // 'color' is the background color of the view
+            }
+
+            Drawable secondaryColorData = secondaryColorView.getBackground();
+            if (secondaryColorData instanceof ColorDrawable) {
+                 secondaryColor = ((ColorDrawable) secondaryColorData).getColor();
+                // 'color' is the background color of the view
+            }
+
+            Drawable tertiaryColorData = tertiaryColorView.getBackground();
+            if (tertiaryColorData instanceof ColorDrawable) {
+                tertiaryColor = ((ColorDrawable) tertiaryColorData).getColor();
+                // 'color' is the background color of the view
+            }
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O_MR1) {
+                WallpaperColors wallpaperColors = new WallpaperColors(Color.valueOf(primaryColor), Color.valueOf(secondaryColor), Color.valueOf(tertiaryColor));
+                ColorScheme colorScheme = new ColorScheme(wallpaperColors,true, Style.EXPRESSIVE);
+                ThemeChanger.setThemeColor(colorScheme.getSeed(), ThemeChanger.ThemeStyle.EXPRESSIVE);
+            }
+        });
+
+
     }
 
     // Additional methods to interact with the custom view (like setters, getters)
