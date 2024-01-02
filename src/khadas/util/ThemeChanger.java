@@ -164,10 +164,10 @@ public class ThemeChanger {
             String[] pairs = line.split(",\\s*");
             for (String pair : pairs) {
                 Log.d("SettingsParser", "Processing pair: " + pair);
-                String[] keyValue = pair.split(":");
+                String[] keyValue = pair.split("=");
                 if (keyValue.length == 2) {
-                    String key = keyValue[0].trim(); // Key is trimmed
-                    String value = keyValue[1].trim(); // Value is trimmed
+                    String key = keyValue[0].trim().replaceAll("^\"|\"$", ""); // Remove surrounding quotes from key
+                    String value = keyValue[1].trim().replaceAll("^\"|\"$", ""); // Remove surrounding quotes from value
                     Log.d("SettingsParser", "Parsed key: " + key + ", value: " + value);
                     settings.put(key, value);
                 } else {
@@ -177,7 +177,6 @@ public class ThemeChanger {
         } else {
             Log.d("SettingsParser", "Line does not start and end with curly braces");
         }
-
         Log.d("ThemeSettings", "<=======================================>");
     }
 }
