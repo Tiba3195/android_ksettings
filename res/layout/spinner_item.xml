@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:textColor="@color/material_dynamic_primary70"
+    android:textColor="@android:color/system_accent1_200"
     android:textSize="20sp">
     <!-- Add any other styling you need -->
 

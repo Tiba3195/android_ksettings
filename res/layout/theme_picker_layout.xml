@@ -14,13 +14,13 @@
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        app:cardBackgroundColor="@color/material_dynamic_primary10"
+        app:cardBackgroundColor="@android:color/system_accent1_900"
         app:cardCornerRadius="32dp">
 
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -32,10 +32,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
-                    android:backgroundTint="@color/material_dynamic_primary30"
+                    android:backgroundTint="@android:color/system_accent1_700"
                     android:backgroundTintMode="multiply"
                     android:text="APPLY THEME"
-                    android:textColor="@color/material_dynamic_primary80"
+                    android:textColor="@android:color/system_accent1_200"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    app:cardBackgroundColor="@color/material_dynamic_primary20"
+                    app:cardBackgroundColor="@android:color/system_accent1_800"
                     app:cardCornerRadius="32dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +71,7 @@
                             android:layout_marginTop="48dp"
                             android:text="Theme Style"
                             android:textAlignment="center"
-                            android:textColor="@color/material_dynamic_primary70"
+                            android:textColor="@android:color/system_accent1_200"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +88,7 @@
                             android:layout_height="wrap_content"
                             android:text="Seed Color"
                             android:textAlignment="center"
-                            android:textColor="@color/material_dynamic_primary70"
+                            android:textColor="@android:color/system_accent1_200"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -112,7 +112,7 @@
                             android:layout_marginTop="-64dp"
                             android:text="#000000"
                             android:textAlignment="center"
-                            android:textColor="@color/material_dynamic_primary70"
+                            android:textColor="@android:color/system_accent1_200"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -129,7 +129,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Hue"
-                                android:textColor="@color/material_dynamic_primary70" />
+                                android:textColor="@android:color/system_accent1_200" />
 
                             <SeekBar
                                 android:id="@+id/seekBarHue"
@@ -149,7 +149,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Saturation"
-                                android:textColor="@color/material_dynamic_primary70" />
+                                android:textColor="@android:color/system_accent1_200" />
 
                             <SeekBar
                                 android:id="@+id/seekBarSaturation"
@@ -169,7 +169,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Brightness"
-                                android:textColor="@color/material_dynamic_primary70" />
+                                android:textColor="@android:color/system_accent1_200" />
 
                             <SeekBar
                                 android:id="@+id/seekBarBrightness"
@@ -191,7 +191,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    app:cardBackgroundColor="@color/material_dynamic_primary20"
+                    app:cardBackgroundColor="@android:color/system_accent1_800"
                     app:cardCornerRadius="32dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -210,10 +210,10 @@
                             android:layout_marginStart="32dp"
                             android:layout_marginEnd="32dp"
                             android:layout_marginBottom="16dp"
-                            android:backgroundTint="@color/material_dynamic_primary30"
+                            android:backgroundTint="@android:color/system_accent1_700"
                             android:backgroundTintMode="multiply"
                             android:text="Generate Seed Color"
-                            android:textColor="@color/material_dynamic_primary80"
+                            android:textColor="@android:color/system_accent1_200"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -225,7 +225,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="-16dp"
                             android:text="Select Base Theme Colors"
-                            android:textColor="@color/material_dynamic_primary70"
+                            android:textColor="@android:color/system_accent1_200"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
                             app:layout_constraintEnd_toEndOf="parent"
