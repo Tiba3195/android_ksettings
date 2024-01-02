@@ -66,22 +66,32 @@ public class ThemePicker extends LinearLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+        Log.d("ThemePicker", "onFinishInflate called");
 
-        if(!isInEditMode())
-        {
+        if(!isInEditMode()) {
             Map<String, String> currentSettings = ThemeChanger.getThemeCustomizationSettings();
+            Log.d("ThemePicker", "Current Settings: " + currentSettings);
 
-            // Extract the color string
             String colorString = currentSettings.get("android.theme.customization.system_palette");
             String styleString = currentSettings.get("android.theme.customization.theme_style");
-            applyThemeSettings(colorString);
+
+            Log.d("ThemePicker", "Color String: " + colorString + ", Style String: " + styleString);
+
+            if (colorString != null && colorString.matches("#[0-9a-fA-F]{6}")) {
+                applyThemeSettings(colorString);
+            } else {
+                Log.d("ThemePicker", "Invalid or null color string");
+            }
 
             for (int i = 0; i < themeStyles.length; i++) {
                 if (themeStyles[i].equals(styleString)) {
                     spinnerThemeStyle.setSelection(i);
+                    Log.d("ThemePicker", "Spinner selection set to index: " + i);
                     break;
                 }
             }
+        } else {
+            Log.d("ThemePicker", "In edit mode, skipping onFinishInflate setup");
         }
     }
 
@@ -123,8 +133,13 @@ public class ThemePicker extends LinearLayout {
         seekBarHue = findViewById(R.id.seekBarHue);
         seekBarSaturation = findViewById(R.id.seekBarSaturation);
         seekBarBrightness = findViewById(R.id.seekBarBrightness);
-        setupSeekBars();
 
+        // Set SeekBar initial values
+        seekBarHue.setProgress((int) hsv[0]);
+        seekBarSaturation.setProgress((int) (hsv[1] * 100));
+        seekBarBrightness.setProgress((int) (hsv[2] * 100));
+
+        setupSeekBars();
 
         primaryColorView = findViewById(R.id.primary_color);
 
@@ -159,7 +174,7 @@ public class ThemePicker extends LinearLayout {
             }
         });
 
-        Spinner spinnerThemeStyle = findViewById(R.id.spinnerThemeStyle);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, themeStyles);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerThemeStyle.setAdapter(adapter);
@@ -191,42 +206,50 @@ public class ThemePicker extends LinearLayout {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O_MR1)
-    private int getSeed()
-    {
-        int primaryColor =0;
-        int secondaryColor =0;
-        int tertiaryColor=0;
+    private int getSeed() {
+        Log.d("ThemePicker", "getSeed called");
 
-        primaryColor = primaryColorView.getCurrentColor();
-        secondaryColor = secondaryColorView.getCurrentColor();
-        tertiaryColor =tertiaryColorView.getCurrentColor();
+        int primaryColor = primaryColorView.getCurrentColor();
+        int secondaryColor = secondaryColorView.getCurrentColor();
+        int tertiaryColor = tertiaryColorView.getCurrentColor();
+
+        Log.d("ThemePicker", "Primary Color: " + primaryColor + ", Secondary Color: " + secondaryColor + ", Tertiary Color: " + tertiaryColor);
 
         ColorScheme colorScheme;
         WallpaperColors wallpaperColors = new WallpaperColors(Color.valueOf(primaryColor), Color.valueOf(secondaryColor), Color.valueOf(tertiaryColor));
-        colorScheme = new ColorScheme(wallpaperColors,true, selectedColorThemeStyle);
+        colorScheme = new ColorScheme(wallpaperColors, true, selectedColorThemeStyle);
 
-        return   colorScheme.getSeed();
+        int seed = colorScheme.getSeed();
+        Log.d("ThemePicker", "Generated Seed: " + seed);
+
+        return seed;
     }
 
 
     public void applyThemeSettings(String colorString) {
+        Log.d("ThemePicker", "applyThemeSettings called with colorString: " + colorString);
 
         if (colorString != null) {
             // Add '#' if it's not present
             if (!colorString.startsWith("#")) {
                 colorString = "#" + colorString;
+                Log.d("ThemePicker", "Added # to colorString: " + colorString);
             }
 
             seedColorValueView.setText(colorString);
+            Log.d("ThemePicker", "Set seed color value text: " + colorString);
 
             try {
                 int color = Color.parseColor(colorString);
                 seedColorView.setBackgroundColor(color);
                 seedColorView.invalidate();
+                Log.d("ThemePicker", "Applied color to seedColorView: " + colorString);
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+                Log.e("ThemePicker", "Invalid color string: " + colorString, e);
                 // Handle invalid color string
             }
+        } else {
+            Log.d("ThemePicker", "Received null colorString");
         }
     }
     // Additional methods to interact with the custom view (like setters, getters)

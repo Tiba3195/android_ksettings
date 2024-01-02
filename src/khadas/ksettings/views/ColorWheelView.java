@@ -99,7 +99,7 @@ public class ColorWheelView extends View {
                 SweepGradient sweepGradient = new SweepGradient(radius, radius, colors, null);
                 paint.setShader(sweepGradient);
                 canvas.drawCircle(radius, radius, radius, paint);
-                canvas.drawCircle(touchPoint.x, touchPoint.y, 10, touchpointpaint);
+                canvas.drawCircle(touchPoint.x+5, touchPoint.y +5, 10, touchpointpaint);
             }
         }
     }

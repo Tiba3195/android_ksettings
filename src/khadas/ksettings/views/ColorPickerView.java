@@ -10,6 +10,7 @@ import android.graphics.SweepGradient;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -88,6 +89,9 @@ public class ColorPickerView extends LinearLayout {
         touchPoint = new PointF(event.getX() - radius, event.getY() - radius);
         double touchRadius = Math.sqrt(Math.pow(touchPoint.x, 2) + Math.pow(touchPoint.y, 2));
 
+        Log.d("ColorWheelVerbose", "TouchEvent: Action=" + event.getAction() + ", X=" + event.getX() + ", Y=" + event.getY());
+        Log.d("ColorWheelVerbose", "Calculated TouchPoint: " + touchPoint + ", TouchRadius: " + touchRadius + ", WheelRadius: " + radius);
+
         // Check if the touch is within the radius
         if (touchRadius <= radius) {
             colorWheelView.setTouchPoint(touchPoint);
@@ -95,8 +99,11 @@ public class ColorPickerView extends LinearLayout {
             angle = angle < 0 ? angle + 360f : angle;
             hsv[0] = angle;
 
+            Log.d("ColorWheelVerbose", "Inside wheel. Angle: " + angle + ", HSV[0]: " + hsv[0]);
+
             if (colorSelectedListener != null) {
                 colorSelectedListener.onColorSelected(Color.HSVToColor(hsv));
+                Log.d("ColorWheelVerbose", "Color selected: " + Color.HSVToColor(hsv));
             }
 
             colorWheelView.setCurrentColor(Color.HSVToColor(hsv));
@@ -113,6 +120,8 @@ public class ColorPickerView extends LinearLayout {
     private void handleColorWheelState(int action) {
         boolean drawCurrentColor = action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_OUTSIDE;
         colorWheelView.setDrawCurrentColor(drawCurrentColor);
+
+        Log.d("ColorWheelVerbose", "Handling State: Action=" + action + ", drawCurrentColor set to " + drawCurrentColor);
     }
 
     public void setOnColorSelectedListener(OnColorSelectedListener listener) {
