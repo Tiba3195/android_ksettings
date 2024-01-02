@@ -15,6 +15,8 @@ public class ColorWheelView extends View {
 
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private  Paint touchpointpaint= new Paint(Paint.ANTI_ALIAS_FLAG);
+    private  Paint currentColorPaint= new Paint(Paint.ANTI_ALIAS_FLAG);
+
     private int radius;
     private int[] colors = new int[361];
 
@@ -53,6 +55,9 @@ public class ColorWheelView extends View {
         paint.setStyle(Paint.Style.FILL);
         touchpointpaint.setStyle(Paint.Style.FILL);
         touchpointpaint.setColor(Color.WHITE);
+        currentColorPaint.setStyle(Paint.Style.FILL);
+        currentColorPaint.setColor(Color.WHITE);
+
         for (int i = 0; i < 361; i++) {
             colors[i] = Color.HSVToColor(new float[]{i, 1f, 1f});
         }
@@ -80,9 +85,8 @@ public class ColorWheelView extends View {
 
             if(isDrawCurrentColor())
             {
-                paint.setShader(null);
-                paint.setColor(Color.HSVToColor(new float[]{getTag().equals("hue") ? 0 : 360, 1f, 1f}));
-                canvas.drawCircle(radius, radius, radius, paint);
+                currentColorPaint.setColor(Color.HSVToColor(new float[]{getTag().equals("hue") ? 0 : 360, 1f, 1f}));
+                canvas.drawCircle(radius, radius, radius, currentColorPaint);
             }
             else {
                 SweepGradient sweepGradient = new SweepGradient(radius, radius, colors, null);
