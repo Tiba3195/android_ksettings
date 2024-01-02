@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -35,6 +36,12 @@ public class ColorWheelView extends View {
     }
 
     private boolean drawCurrentColor = false;
+
+    public void setCurrentColor(int currentColor) {
+        this.currentColor = currentColor;
+    }
+
+    private  int currentColor;
 
     public ColorWheelView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -85,7 +92,7 @@ public class ColorWheelView extends View {
 
             if(isDrawCurrentColor())
             {
-                currentColorPaint.setColor(Color.HSVToColor(new float[]{getTag().equals("hue") ? 0 : 360, 1f, 1f}));
+                currentColorPaint.setColor(currentColor);
                 canvas.drawCircle(radius, radius, radius, currentColorPaint);
             }
             else {
@@ -95,5 +102,11 @@ public class ColorWheelView extends View {
                 canvas.drawCircle(touchPoint.x, touchPoint.y, 10, touchpointpaint);
             }
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        return false;
     }
 }

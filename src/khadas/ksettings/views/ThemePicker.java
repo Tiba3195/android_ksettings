@@ -63,6 +63,28 @@ public class ThemePicker extends LinearLayout {
         init(context);
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+
+        if(!isInEditMode())
+        {
+            Map<String, String> currentSettings = ThemeChanger.getThemeCustomizationSettings();
+
+            // Extract the color string
+            String colorString = currentSettings.get("android.theme.customization.system_palette");
+            String styleString = currentSettings.get("android.theme.customization.theme_style");
+            applyThemeSettings(colorString);
+
+            for (int i = 0; i < themeStyles.length; i++) {
+                if (themeStyles[i].equals(styleString)) {
+                    spinnerThemeStyle.setSelection(i);
+                    break;
+                }
+            }
+        }
+    }
+
     private void setupSeekBars() {
         SeekBar.OnSeekBarChangeListener listener = new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -102,14 +124,7 @@ public class ThemePicker extends LinearLayout {
         seekBarSaturation = findViewById(R.id.seekBarSaturation);
         seekBarBrightness = findViewById(R.id.seekBarBrightness);
         setupSeekBars();
-        if(!isInEditMode())
-        {
-            Map<String, String> currentSettings = ThemeChanger.getThemeCustomizationSettings();
 
-            // Extract the color string
-            String colorString = currentSettings.get("android.theme.customization.system_palette");
-            applyThemeSettings(colorString);
-        }
 
         primaryColorView = findViewById(R.id.primary_color);
 
@@ -155,11 +170,7 @@ public class ThemePicker extends LinearLayout {
                 selectedThemeStyle = ThemeChanger.ThemeStyle.fromString((String) parent.getItemAtPosition(position));
                 selectedColorThemeStyle = Style.fromString((String) parent.getItemAtPosition(position));
                 CurrentSettings = ThemeChanger.getThemeCustomizationSettings();
-                Map<String, String> currentSettings = ThemeChanger.getThemeCustomizationSettings();
 
-                // Extract the color string
-                String colorString = currentSettings.get("android.theme.customization.system_palette");
-                applyThemeSettings(colorString);
                 spinnerThemeStyle.setSelection(position);
                 // Handle the selected theme style
             }

@@ -63,6 +63,16 @@ public class ColorPickerView extends LinearLayout {
         radius = Math.min(w, h) / 2;
 
     }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+
+        if(!isInEditMode()) {
+            colorWheelView.setCurrentColor(Color.HSVToColor(hsv));
+        }
+    }
+
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.color_picker_view, this, true);
         colorWheelView = findViewById(R.id.colorWheel);
@@ -75,11 +85,12 @@ public class ColorPickerView extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         touchPoint = new PointF(event.getX() - radius, event.getY() - radius);
         double touchRadius = Math.sqrt(Math.pow(touchPoint.x, 2) + Math.pow(touchPoint.y, 2));
-        colorWheelView.setTouchPoint(touchPoint);
+
+        // Check if the touch is within the radius
         if (touchRadius <= radius) {
+            colorWheelView.setTouchPoint(touchPoint);
             float angle = (float) (Math.atan2(touchPoint.y, touchPoint.x) / Math.PI * 180f);
             angle = angle < 0 ? angle + 360f : angle;
             hsv[0] = angle;
@@ -88,32 +99,20 @@ public class ColorPickerView extends LinearLayout {
                 colorSelectedListener.onColorSelected(Color.HSVToColor(hsv));
             }
 
+            colorWheelView.setCurrentColor(Color.HSVToColor(hsv));
+
             invalidate();
-            return true;
+            handleColorWheelState(event.getAction());
+            return true; // Touch was within the color wheel
         }
 
-        if(event.getAction() == MotionEvent.ACTION_UP) {
-            colorWheelView.setDrawCurrentColor(true);
-        }
-        else if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            colorWheelView.setDrawCurrentColor(false);
-            return true;
-        }
-        else if(event.getAction() == MotionEvent.ACTION_MOVE) {
-            colorWheelView.setDrawCurrentColor(false);
-            return true;
-        }
-        else if(event.getAction() == MotionEvent.ACTION_CANCEL) {
-            colorWheelView.setDrawCurrentColor(true);
-        }
-        else if(event.getAction() == MotionEvent.ACTION_OUTSIDE) {
-            colorWheelView.setDrawCurrentColor(true);
-        }
-        else {
-            colorWheelView.setDrawCurrentColor(true);
-        }
+        handleColorWheelState(event.getAction());
+        return super.onTouchEvent(event); // Pass the event up if not within the color wheel
+    }
 
-        return super.onTouchEvent(event);
+    private void handleColorWheelState(int action) {
+        boolean drawCurrentColor = action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_OUTSIDE;
+        colorWheelView.setDrawCurrentColor(drawCurrentColor);
     }
 
     public void setOnColorSelectedListener(OnColorSelectedListener listener) {
