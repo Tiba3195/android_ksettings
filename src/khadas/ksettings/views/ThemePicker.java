@@ -16,6 +16,7 @@ import com.khadas.ksettings.R;
 import com.khadas.util.ColorScheme;
 import com.khadas.util.Style;
 import com.khadas.util.ThemeChanger;
+import com.khadas.util.ColorSchemeHelper;
 
 import java.util.Arrays;
 
@@ -55,12 +56,11 @@ public class ThemePicker extends LinearLayout {
         applyThemeButton = findViewById(R.id.button);
 
         // Example usage (like setting listeners)
-        applyThemeButton.setOnClickListener(v -> {
-
+        applyThemeButton.setOnClickListener(v ->
+        {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O_MR1) {
                 WallpaperColors wallpaperColors = new WallpaperColors(Color.valueOf(Color.RED), Color.valueOf(Color.BLUE), Color.valueOf(Color.GREEN));
                 ColorScheme colorScheme = new ColorScheme(wallpaperColors,true, Style.EXPRESSIVE);
-
                 ThemeChanger.setThemeColor(colorScheme.getSeed(), ThemeChanger.ThemeStyle.EXPRESSIVE);
             }
         });
