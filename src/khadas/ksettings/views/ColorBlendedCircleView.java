@@ -122,8 +122,8 @@ public class ColorBlendedCircleView extends View {
     }
 
     public Bitmap getBitmap() {
-        if (bitmap == null && getWidth() > 0 && getHeight() > 0) {
-            bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        if (bitmap == null ) {
+            bitmap = Bitmap.createBitmap(128, 128, Bitmap.Config.ARGB_8888);
             bitmapCanvas = new Canvas(bitmap);
             drawColors(bitmapCanvas);
         }

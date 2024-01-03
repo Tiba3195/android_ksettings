@@ -79,7 +79,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Seed Color"
+                            android:text="Seed Colors"
                             android:textAlignment="center"
                             android:textColor="@android:color/system_accent1_200"
                             android:textSize="16sp"
@@ -328,8 +328,8 @@
 
                                 <com.khadas.ksettings.views.ColorBlendedCircleView
                                     android:id="@+id/colorCircleView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent" />
+                                    android:layout_width="128dp"
+                                    android:layout_height="128dp" />
                             </FrameLayout>
 
                         </androidx.constraintlayout.widget.ConstraintLayout>

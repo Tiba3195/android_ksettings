@@ -100,6 +100,7 @@ public class ThemePicker extends LinearLayout {
             }
         } else {
             Log.d("ThemePicker", "In edit mode, skipping onFinishInflate setup");
+            applyThemeSettings(new ArrayList<String>(){{ add("#FF00000"); }});
         }
 
         seekBarHue.setProgress((int)MapValueToRange(0.1f,0.8f,0.0f,100.0f,0.5f));
