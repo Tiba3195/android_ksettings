@@ -19,6 +19,8 @@ public class ColorBlendedCircleView extends View {
     private Paint ringPaint;
     private Bitmap bitmap;
     private Canvas bitmapCanvas;
+    private Canvas outputBitmapCanvas;
+    private Bitmap outputBitmap;
     private int primaryColor = 0xFFFF0000; // Default Red
     private int secondaryColor = 0xFF00FF00; // Default Green
     private int tertiaryColor = 0xFF0000FF; // Default Blue
@@ -95,12 +97,10 @@ public class ColorBlendedCircleView extends View {
             bitmapCanvas = new Canvas(bitmap);
         }
 
-        drawColors(bitmapCanvas);  // Draw the colors on the bitmap canvas
+        drawColors(bitmapCanvas,getWidth(),getHeight());  // Draw the colors on the bitmap canvas
         canvas.drawBitmap(bitmap, 0, 0, null);  // Draw the bitmap on the view canvas
     }
-    private void drawColors(Canvas canvas) {
-        int width = getWidth();
-        int height = getHeight();
+    private void drawColors(Canvas canvas,int width , int height) {
         int radius = Math.min(width, height) / 2;
 
         // Draw the main circle with blended colors
@@ -122,12 +122,13 @@ public class ColorBlendedCircleView extends View {
     }
 
     public Bitmap getBitmap() {
-        if (bitmap == null ) {
-            bitmap = Bitmap.createBitmap(128, 128, Bitmap.Config.ARGB_8888);
-            bitmapCanvas = new Canvas(bitmap);
-            drawColors(bitmapCanvas);
+        if (outputBitmap == null ) {
+            outputBitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
+            outputBitmapCanvas = new Canvas(outputBitmap);
         }
-        return bitmap;
+
+        drawColors(outputBitmapCanvas,32,32);
+        return outputBitmap;
     }
 
     @Override
