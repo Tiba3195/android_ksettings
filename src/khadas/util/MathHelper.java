@@ -1,7 +1,7 @@
 package com.khadas.util;
 
 import static androidx.core.math.MathUtils.clamp;
-import static com.google.android.material.math.MathUtils.lerp;
+
 import static java.lang.Math.abs;
 
 public class MathHelper {
@@ -20,7 +20,9 @@ public class MathHelper {
     {
         return lerp(RangeMin, RangeMax, Pct);
     }
-
+    public static float lerp(float start, float stop, float amount) {
+        return (1 - amount) * start + amount * stop;
+    }
     static public float GetRangePct(float MinValue, float MaxValue, float Value)
     {
         // Avoid Divide by Zero.
