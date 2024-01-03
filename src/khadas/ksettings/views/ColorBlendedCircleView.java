@@ -1,5 +1,7 @@
 package com.khadas.ksettings.views;
 
+import static com.khadas.util.MathHelper.MapValueToRange;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -20,7 +22,52 @@ public class ColorBlendedCircleView extends View {
     private int primaryColor = 0xFFFF0000; // Default Red
     private int secondaryColor = 0xFF00FF00; // Default Green
     private int tertiaryColor = 0xFF0000FF; // Default Blue
+
+    public float getPrimaryColorAmount() {
+        return primaryColorAmount;
+    }
+
+    public void setPrimaryColorAmount(float primaryColorAmount) {
+        this.primaryColorAmount = MapValueToRange(0.0f,1.0f,0.1f,0.8f,primaryColorAmount) ;
+        colorDistributions[0] = this.primaryColorAmount;
+        invalidate();
+    }
+
+    public float getSecondaryColorAmount() {
+        return secondaryColorAmount;
+    }
+
+    public void setSecondaryColorAmount(float secondaryColorAmount) {
+        this.secondaryColorAmount =MapValueToRange(0.0f,1.0f,0.5f,2.5f,secondaryColorAmount) ;
+        colorDistributions[1] = this.secondaryColorAmount;
+        invalidate();
+    }
+
+    public float getTertiaryColorAmount() {
+        return tertiaryColorAmount;
+    }
+
+    public void setTertiaryColorAmount(float tertiaryColorAmount) {
+        this.tertiaryColorAmount = MapValueToRange(0.0f,1.0f,4.0f,10.0f,tertiaryColorAmount) ;
+        colorDistributions[2] = this.tertiaryColorAmount;
+        invalidate();
+    }
     private float[] colorDistributions = new float[]{0.50f, 0.8f, 6.9f}; // Distribution of each color
+
+    void setColorDistributions(float primaryColorAmount, float secondaryColorAmount, float tertiaryColorAmount) {
+        this.primaryColorAmount = primaryColorAmount;
+        this.secondaryColorAmount = secondaryColorAmount;
+        this.tertiaryColorAmount = tertiaryColorAmount;
+        colorDistributions[0] = primaryColorAmount;
+        colorDistributions[1] = secondaryColorAmount;
+        colorDistributions[2] = tertiaryColorAmount;
+        invalidate();
+    }
+
+    private float primaryColorAmount = 0.50f; // Default Red
+    private float secondaryColorAmount  = 0.8f; // Default Green
+    private float tertiaryColorAmount  = 6.9f; // Default Blue
+
     public ColorBlendedCircleView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
@@ -57,14 +104,14 @@ public class ColorBlendedCircleView extends View {
         int radius = Math.min(width, height) / 2;
 
         // Draw the main circle with blended colors
-        RadialGradient gradient = new RadialGradient(width / 2f, height / 2f, radius,
-                new int[]{primaryColor, secondaryColor, tertiaryColor, primaryColor,secondaryColor},
-                new float[]{0.2f, 0.63f, 0.67f, 1f,0.5f}, Shader.TileMode.CLAMP);
-        paint.setShader(gradient);
-        canvas.drawCircle(width / 2f, height / 2f, radius, paint);
+        //RadialGradient gradient = new RadialGradient(width / 2f, height / 2f, radius,
+        //        new int[]{primaryColor, secondaryColor, tertiaryColor, primaryColor,secondaryColor},
+       //         new float[]{0.2f, 0.63f, 0.67f, 1f,0.5f}, Shader.TileMode.CLAMP);
+       // paint.setShader(gradient);
+        //canvas.drawCircle(width / 2f, height / 2f, radius, paint);
 
         // Draw the ring
-        float ringWidth = radius * 0.2f; // Adjust the ring width as needed
+        float ringWidth = radius * 0.25f; // Adjust the ring width as needed
         ringPaint.setStrokeWidth(ringWidth);
         float halfRingWidth = ringWidth / 2f;
         LinearGradient ringGradient = new LinearGradient(0,  0, 0, height,

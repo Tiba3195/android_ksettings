@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ColorScheme {
-    public int getSeed() {
+    public int getPrimarySeed() {
         return seed;
     }
 
@@ -21,6 +21,7 @@ public class ColorScheme {
         return style;
     }
 
+    private  List<Integer> SeedColors;
     @ColorInt
     private final int seed;
     private final boolean darkTheme;
@@ -31,8 +32,9 @@ public class ColorScheme {
     public TonalPalette neutral1;
     public TonalPalette neutral2;
 
-    public ColorScheme(@ColorInt int seed, boolean darkTheme, Style style) {
-        this.seed = seed;
+    public ColorScheme(List<Integer>  seeds, boolean darkTheme, Style style) {
+        this.SeedColors = seeds;
+        this.seed = seeds.get(0);
         this.darkTheme = darkTheme;
         this.style = style != null ? style : Style.TONAL_SPOT;
 
@@ -46,19 +48,19 @@ public class ColorScheme {
     }
 
     public ColorScheme(@ColorInt int seed, boolean darkTheme) {
-        this(seed, darkTheme, Style.TONAL_SPOT);
+        this(new ArrayList<Integer>(){{ add(seed); }}, darkTheme, Style.TONAL_SPOT);
     }
 
     @RequiresApi(Build.VERSION_CODES.O_MR1)
     public ColorScheme(Map<Integer, Integer> allColors, List<Color> mainColors,
                        boolean darkTheme, Style style) {
-        this(ColorSchemeHelper.getSeedColor(allColors, mainColors, style != Style.CONTENT),
+        this(ColorSchemeHelper.getSeedColors(allColors, mainColors, style != Style.CONTENT),
                 darkTheme, style);
     }
 
     @RequiresApi(Build.VERSION_CODES.O_MR1)
     public ColorScheme(WallpaperColors wallpaperColors, boolean darkTheme, Style style) {
-        this(ColorSchemeHelper.getSeedColorFromWallPaper(wallpaperColors, style != Style.CONTENT),
+        this(ColorSchemeHelper.getSeedColorsFromWallPaper(wallpaperColors, style != Style.CONTENT),
                 darkTheme, style);
     }
 

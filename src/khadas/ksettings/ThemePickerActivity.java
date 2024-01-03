@@ -8,5 +8,7 @@ public class ThemePickerActivity extends PreferenceActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.canbus_settings_control);
+
+
         }
 }

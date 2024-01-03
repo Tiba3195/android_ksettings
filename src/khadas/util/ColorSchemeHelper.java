@@ -135,8 +135,10 @@ public class ColorSchemeHelper {
             }
 
             if (!seeds.isEmpty()) {
-                Log.d("SeedColor", "Seeds identified, breaking main loop");
-                break;
+                if (seeds.size() >= 4) {
+                    Log.d("SeedColor", "Reached 4 seeds, breaking loop");
+                    break;
+                }
             }
         }
 
