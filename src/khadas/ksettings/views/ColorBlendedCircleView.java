@@ -123,11 +123,11 @@ public class ColorBlendedCircleView extends View {
 
     public Bitmap getBitmap() {
         if (outputBitmap == null ) {
-            outputBitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
+            outputBitmap = Bitmap.createBitmap(16, 16, Bitmap.Config.ARGB_8888);
             outputBitmapCanvas = new Canvas(outputBitmap);
         }
 
-        drawColors(outputBitmapCanvas,32,32);
+        drawColors(outputBitmapCanvas,16,16);
         return outputBitmap;
     }
 
