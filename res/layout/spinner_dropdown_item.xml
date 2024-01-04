@@ -6,6 +6,6 @@
     android:layout_height="wrap_content"
     android:padding="12dp"
     android:textColor="#FF0000"
-    android:textSize="64sp" />
+    android:textSize="32sp" />
     <!-- Add any other styling you need -->
 

@@ -8,8 +8,8 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/colorSurface"
         app:cardCornerRadius="32dp">
 
@@ -17,7 +17,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
@@ -28,12 +28,12 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
@@ -48,7 +48,7 @@
                     app:layout_constraintVertical_bias="0.0">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="8dp"
@@ -64,7 +64,7 @@
                             android:text="Theme Style"
                             android:textAlignment="center"
                             android:textColor="@android:color/system_accent1_200"
-                            android:textSize="32sp"
+                            android:textSize="48sp"
                             app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -82,14 +82,14 @@
                             android:text="Seed Colors"
                             android:textAlignment="center"
                             android:textColor="@android:color/system_accent1_200"
-                            android:textSize="32sp"
+                            android:textSize="48sp"
                             app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -160,7 +160,7 @@
 
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginRight="16dp"
@@ -168,7 +168,7 @@
                                 android:orientation="vertical">
 
                                 <LinearLayout
-                                    android:layout_width="match_parent"
+                                    android:layout_width="300dp"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical">
 
@@ -177,10 +177,11 @@
                                         android:layout_height="wrap_content"
                                         android:text="Primary"
                                         android:textColor="@android:color/system_accent1_200"
-                                        android:textSize="28sp" />
+                                        android:textSize="32sp" />
 
                                     <SeekBar
                                         android:id="@+id/seekBarHue"
+                                        style="@style/CustomSeekBarStyle"
                                         android:layout_width="match_parent"
                                         android:layout_height="48dp"
                                         android:layout_marginBottom="8dp"
@@ -197,10 +198,11 @@
                                         android:layout_height="wrap_content"
                                         android:text="Secondary"
                                         android:textColor="@android:color/system_accent1_200"
-                                        android:textSize="28sp" />
+                                        android:textSize="32sp" />
 
                                     <SeekBar
                                         android:id="@+id/seekBarSaturation"
+                                        style="@style/CustomSeekBarStyle"
                                         android:layout_width="match_parent"
                                         android:layout_height="48dp"
                                         android:layout_marginBottom="8dp"
@@ -217,10 +219,11 @@
                                         android:layout_height="wrap_content"
                                         android:text="Tertiary"
                                         android:textColor="@android:color/system_accent1_200"
-                                        android:textSize="28sp" />
+                                        android:textSize="32sp" />
 
                                     <SeekBar
                                         android:id="@+id/seekBarBrightness"
+                                        style="@style/CustomSeekBarStyle"
                                         android:layout_width="match_parent"
                                         android:layout_height="48dp"
                                         android:max="100" />

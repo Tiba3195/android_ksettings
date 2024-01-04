@@ -10,6 +10,12 @@
 
     <style name="Theme.SettingsBase" parent="@android:style/Theme.DeviceDefault.Settings" />
 
-
+    <!-- Custom SeekBar Style -->
+    <style name="CustomSeekBarStyle" parent="Widget.AppCompat.SeekBar">
+        <!-- Customize thumb size -->
+        <item name="android:thumb">@drawable/custom_thumb_drawable</item>
+        <!-- Customize track height -->
+        <item name="android:track">@drawable/custom_track_drawable</item>
+    </style>
 
 </resources>
