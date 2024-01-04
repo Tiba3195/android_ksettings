@@ -6,7 +6,7 @@
         android:title="@string/Display_Setting"
         android:iconSpaceReserved="false">
         <intent
-            android:targetClass="@string/gpio_setting"
+            android:targetClass="com.khadas.ksettings.Display_Preference"
             android:targetPackage="com.khadas.ksettings" />
     </PreferenceScreen>
     <PreferenceScreen

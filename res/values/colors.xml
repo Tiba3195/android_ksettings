@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="colorPrimary">@android:color/system_accent1_200</color>
+    <color name="textColorPrimary">@android:color/system_accent1_100</color>
+    <color name="textColorPrimaryInverse">@android:color/system_neutral1_50</color>
+    <color name="colorOnPrimary">@android:color/system_accent1_800</color>
+    <color name="colorSecondary">@android:color/system_accent2_200</color>
+    <color name="textColorSecondary">@android:color/system_accent2_100</color>
+    <color name="textColorSecondaryInverse">@android:color/system_neutral2_50</color>
+    <color name="colorTertiary">@android:color/system_accent3_300</color>
+    <color name="textColorTertiary">@android:color/system_accent3_100</color>
+    <color name="textColorTertiaryInverse">@android:color/system_neutral2_200</color>
+    <color name="colorOnSecondary">@android:color/system_accent2_800</color>
+    <color name="colorError">@color/design_default_color_error</color>
+    <color name="colorOnError">@color/design_default_color_error</color>
+    <color name="colorBackground">@android:color/system_neutral1_900</color>
+    <color name="colorOnBackground">@android:color/system_neutral1_100</color>
+    <color name="colorSurface">@android:color/system_neutral1_900</color>
+    <color name="colorOnSurface">@android:color/system_neutral1_100</color>
+    <color name="colorUnderSurface">@android:color/system_neutral1_1000</color>
+    <color name="textOnSurface">@android:color/system_neutral1_900</color>
+    <color name="colorPrimaryStateContent">@android:color/system_accent1_200</color>
+    <color name="colorPrimaryStateLayer">@android:color/system_accent1_300</color>
+    <color name="colorSecondaryStateContent">@android:color/system_accent2_200</color>
+    <color name="colorSecondaryStateLayer">@android:color/system_accent2_300</color>
+    <color name="colorOnPrimaryStateContent">@android:color/system_accent1_800</color>
+    <color name="colorOnPrimaryStateLayer">@android:color/system_accent1_800</color>
+    <color name="colorOnSecondaryStateContent">@android:color/system_accent2_800</color>
+    <color name="colorOnSecondaryStateLayer">@android:color/system_accent2_800</color>
+    <color name="colorOnPrimaryContainerStateContent">@android:color/system_accent1_900</color>
+    <color name="colorOnPrimaryContainerStateLayer">@android:color/system_accent1_900</color>
+    <color name="colorOnSecondaryContainerStateContent">@android:color/system_accent2_900</color>
+    <color name="colorOnSecondaryContainerStateLayer">@android:color/system_accent2_900</color>
+    <color name="colorOnTertiaryContainerStateContent">@android:color/system_accent3_900</color>
+    <color name="colorOnTertiaryContainerStateLayer">@android:color/system_accent3_900</color>
+    <color name="colorOnSurfaceStateContent">@android:color/system_neutral1_100</color>
+    <color name="colorOnSurfaceStateLayer">@android:color/system_neutral1_100</color>
+    <color name="colorOnSurfaceVariantStateContent">@android:color/system_neutral2_200</color>
+    <color name="colorOnSurfaceVariantStateLayer">@android:color/system_neutral2_200</color>
+    <color name="colorErrorStateContent">@color/design_default_color_error</color>
 </resources>
