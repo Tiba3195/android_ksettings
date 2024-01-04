@@ -76,6 +76,10 @@ public class ThemePicker extends LinearLayout {
         super.onFinishInflate();
         Log.d("ThemePicker", "onFinishInflate called");
 
+        seekBarHue.setProgress((int)MapValueToRange(0.1f,0.8f,0.0f,100.0f,0.5f));
+        seekBarSaturation.setProgress((int)MapValueToRange(0.5f,2.5f,0.0f,100.0f,0.8f));
+        seekBarBrightness.setProgress((int)MapValueToRange(4.0f,10.0f,0.0f,100.0f,6.9f));
+
         if(!isInEditMode()) {
             Map<String, String> currentSettings = ThemeChanger.getThemeCustomizationSettings();
             Log.d("ThemePicker", "Current Settings: " + currentSettings);
@@ -103,15 +107,19 @@ public class ThemePicker extends LinearLayout {
             applyThemeSettings(new ArrayList<String>(){{ add("#FF00000"); }});
         }
 
-        seekBarHue.setProgress((int)MapValueToRange(0.1f,0.8f,0.0f,100.0f,0.5f));
-        seekBarSaturation.setProgress((int)MapValueToRange(0.5f,2.5f,0.0f,100.0f,0.8f));
-        seekBarBrightness.setProgress((int)MapValueToRange(4.0f,10.0f,0.0f,100.0f,6.9f));
+
     }
 
     private void setupSeekBars() {
         SeekBar.OnSeekBarChangeListener listener = new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                if(!fromUser)
+                {
+                    return;
+                }
+
                 if (seekBar == seekBarHue) {
                     colorCircleView.setPrimaryColorAmount(progress / 100f);
                 } else if (seekBar == seekBarSaturation) {
@@ -292,6 +300,14 @@ public class ThemePicker extends LinearLayout {
         int primaryColor = primaryColorView.getCurrentColor();
         int secondaryColor = secondaryColorView.getCurrentColor();
         int tertiaryColor = tertiaryColorView.getCurrentColor();
+
+        if(primaryColor == 0 || secondaryColor == 0 || tertiaryColor == 0)
+        {
+            Log.d("ThemePicker", "getSeed called with empty colors");
+            Log.d("ThemePicker", "<=======================================>");
+            return new ArrayList<Integer>();
+        }
+
         colorCircleView.setColors(primaryColor, secondaryColor, tertiaryColor);
         Log.d("ThemePicker", "Primary Color: " + primaryColor + ", Secondary Color: " + secondaryColor + ", Tertiary Color: " + tertiaryColor);
 
@@ -334,7 +350,6 @@ public class ThemePicker extends LinearLayout {
                 Log.d("ThemePicker", "Received null colorString");
             }
         }
-
 
         Log.d("ThemePicker", "<=======================================>");
     }

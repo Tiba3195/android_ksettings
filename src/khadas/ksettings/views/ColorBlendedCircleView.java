@@ -97,21 +97,25 @@ public class ColorBlendedCircleView extends View {
             bitmapCanvas = new Canvas(bitmap);
         }
 
-        drawColors(bitmapCanvas,getWidth(),getHeight());  // Draw the colors on the bitmap canvas
+        drawColors(bitmapCanvas,getWidth(),getHeight(),0.25f,true);  // Draw the colors on the bitmap canvas
         canvas.drawBitmap(bitmap, 0, 0, null);  // Draw the bitmap on the view canvas
     }
-    private void drawColors(Canvas canvas,int width , int height) {
+    private void drawColors(Canvas canvas,int width , int height, float ringWidthOffset, boolean drawInnerCircle) {
         int radius = Math.min(width, height) / 2;
 
-        // Draw the main circle with blended colors
-        //RadialGradient gradient = new RadialGradient(width / 2f, height / 2f, radius,
-        //        new int[]{primaryColor, secondaryColor, tertiaryColor, primaryColor,secondaryColor},
-       //         new float[]{0.2f, 0.63f, 0.67f, 1f,0.5f}, Shader.TileMode.CLAMP);
-       // paint.setShader(gradient);
-        //canvas.drawCircle(width / 2f, height / 2f, radius, paint);
+        if(drawInnerCircle)
+        {
+            // Draw the main circle with blended colors
+            RadialGradient gradient = new RadialGradient(width / 2f, height / 2f, radius,
+                    new int[]{primaryColor, secondaryColor, tertiaryColor, primaryColor,secondaryColor},
+                   new float[]{0.2f, 0.63f, 0.67f, 1f,0.5f}, Shader.TileMode.CLAMP);
+             paint.setShader(gradient);
+            canvas.drawCircle(width / 2f, height / 2f, radius, paint);
+        }
+
 
         // Draw the ring
-        float ringWidth = radius * 0.25f; // Adjust the ring width as needed
+        float ringWidth = radius * ringWidthOffset; // Adjust the ring width as needed
         ringPaint.setStrokeWidth(ringWidth);
         float halfRingWidth = ringWidth / 2f;
         LinearGradient ringGradient = new LinearGradient(0,  0, 0, height,
@@ -127,7 +131,7 @@ public class ColorBlendedCircleView extends View {
             outputBitmapCanvas = new Canvas(outputBitmap);
         }
 
-        drawColors(outputBitmapCanvas,16,16);
+        drawColors(outputBitmapCanvas,16,16,0.25f,true);
         return outputBitmap;
     }
 
