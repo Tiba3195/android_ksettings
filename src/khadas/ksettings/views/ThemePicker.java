@@ -301,14 +301,15 @@ public class ThemePicker extends LinearLayout {
         int secondaryColor = secondaryColorView.getCurrentColor();
         int tertiaryColor = tertiaryColorView.getCurrentColor();
 
-        if(primaryColor == 0 || secondaryColor == 0 || tertiaryColor == 0)
+        colorCircleView.setColors(primaryColor, secondaryColor, tertiaryColor);
+
+        if(primaryColor == 0 && secondaryColor == 0 && tertiaryColor == 0)
         {
             Log.d("ThemePicker", "getSeed called with empty colors");
             Log.d("ThemePicker", "<=======================================>");
             return new ArrayList<Integer>();
         }
 
-        colorCircleView.setColors(primaryColor, secondaryColor, tertiaryColor);
         Log.d("ThemePicker", "Primary Color: " + primaryColor + ", Secondary Color: " + secondaryColor + ", Tertiary Color: " + tertiaryColor);
 
         WallpaperColors wallpaperColors = WallpaperColors.fromBitmap(colorCircleView.getBitmap());

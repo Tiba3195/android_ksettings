@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="8dp"
     android:textColor="@android:color/system_accent1_200"
-    android:textSize="20sp">
+    android:textSize="64sp">
     <!-- Add any other styling you need -->
 
 </TextView>

@@ -6,8 +6,8 @@
 
     <View
         android:id="@+id/seed_color"
-        android:layout_width="128dp"
-        android:layout_height="48dp"
+        android:layout_width="400dp"
+        android:layout_height="128dp"
         android:background="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@
         android:text="#000000"
         android:textAlignment="center"
         android:textColor="@color/textColorPrimaryInverse"
-        android:textSize="16sp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
