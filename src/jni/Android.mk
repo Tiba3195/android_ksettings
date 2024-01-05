@@ -13,7 +13,7 @@ LOCAL_SHARED_LIBRARIES := \
     libandroid \
     liblog \
     libdl \
-    gpiocontrol \
+    libgpiocontrol \
 	libnativehelper
 
 LOCAL_CFLAGS += \
