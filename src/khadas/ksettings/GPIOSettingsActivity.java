@@ -97,16 +97,17 @@ public class GPIOSettingsActivity extends PreferenceActivity {
                 }
                 else
                 {
-                    if (dialog.isShowing())
-                    {
-                        dialog.dismiss();
-                    }
                     if (exportMode)
                     {
                         exportPin(Integer.parseInt(textInput.getText().toString()));
                     } else
                     {
                         unExportPin(Integer.parseInt(textInput.getText().toString()));
+                    }
+
+                    if (dialog.isShowing())
+                    {
+                        dialog.dismiss();
                     }
                 }
             }
