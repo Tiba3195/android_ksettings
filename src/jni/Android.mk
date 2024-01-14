@@ -14,7 +14,7 @@ LOCAL_SHARED_LIBRARIES := \
     liblog \
     libdl \
     libgpiocontrol \
-	libnativehelper
+    libnativehelper
 
 LOCAL_PRIVATE_MODULE_LIBRARIES := libgpiocontrol
 
@@ -30,7 +30,7 @@ LOCAL_CPPFLAGS += -std=c++11 # Adjust as needed for your C++ standard
 
 LOCAL_LDLIBS := -llog -ldl
 
-LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
+LOCAL_MODULE_RELATIVE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
 
 LOCAL_TARGET_ARCH_ABI := arm64-v8a
 
