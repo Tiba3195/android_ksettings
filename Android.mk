@@ -1,10 +1,6 @@
 LOCAL_PATH := $(call my-dir)
-LOCAL_PATH_OLD := $(call my-dir)
-include $(LOCAL_PATH)/src/jni/Android.mk
 
-LOCAL_PATH := $(LOCAL_PATH_OLD)
 include $(CLEAR_VARS)
-
 
 LOCAL_PACKAGE_NAME := KSettings
 
@@ -37,3 +33,4 @@ LOCAL_PLATFORM_APIS := true
 APP_ABI := arm64-v8a
 
 include $(BUILD_PACKAGE)
+
