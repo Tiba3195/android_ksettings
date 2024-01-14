@@ -130,4 +130,31 @@
     <dimen name="color_seed_option_tile_padding">10dp</dimen>
     <dimen name="color_seed_option_tile_padding_selected">6dp</dimen>
     <dimen name="color_seed_chip_margin">28dp</dimen>
+
+
+    <dimen name="container_margin">14dp</dimen>
+    <dimen name="container_marginSide">16dp</dimen>
+    <dimen name="container_marginTopBottom">24dp</dimen>
+    <dimen name="container_padding">24dp</dimen>
+    <dimen name="container_paddingSide">24dp</dimen>
+    <dimen name="cont_title_size">16sp</dimen>
+    <dimen name="cont_desc_size">14sp</dimen>
+    <dimen name="preview_margin">3dp</dimen>
+    <dimen name="preview_icon_size">18dp</dimen>
+    <dimen name="cont_corner_radius">24dp</dimen>
+    <dimen name="cont_corner_radius2">22dp</dimen>
+    <dimen name="reset_button_size">20dp</dimen>
+    <dimen name="header_title_size">18sp</dimen>
+    <dimen name="content_marginTop">24dp</dimen>
+    <dimen name="switch_min_width">46dp</dimen>
+    <dimen name="switch_bar_radius">32dp</dimen>
+    <dimen name="switch_thumb_margin">8dp</dimen>
+    <dimen name="switch_thumb_size">14dp</dimen>
+    <dimen name="switch_track_width">46dp</dimen>
+    <dimen name="switch_track_height">20dp</dimen>
+    <dimen name="switch_track_radius">32dp</dimen>
+    <dimen name="preview_color_picker_radius">32dp</dimen>
+    <item name="switch_track_on_alpha" format="float" type="dimen">1.0</item>
+    <item name="rotate_rtl_mode" format="float" type="dimen">0.0</item>
+    <item name="flip_rtl_mode" format="float" type="dimen">1.0</item>
 </resources>
